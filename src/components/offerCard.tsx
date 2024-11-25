@@ -1,7 +1,9 @@
 
-export default function OfferCard(): JSX.Element {
+type OfferCardProps = {key: string};
+
+export default function OfferCard(props: OfferCardProps): JSX.Element {
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" key={props.key}>
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
