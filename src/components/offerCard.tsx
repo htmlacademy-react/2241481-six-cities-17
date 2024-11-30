@@ -1,9 +1,13 @@
 
-type OfferCardProps = {key: string};
+import { OfferType } from "./app/app";
 
-export default function OfferCard(props: OfferCardProps): JSX.Element {
+type OfferCardProps = {
+  offer: OfferType
+}
+
+function OfferCard({offer}: OfferCardProps): JSX.Element {
   return (
-    <article className="cities__card place-card" key={props.key}>
+    <article className="cities__card place-card">
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
@@ -39,3 +43,5 @@ export default function OfferCard(props: OfferCardProps): JSX.Element {
     </article>
   );
 }
+
+export default OfferCard;

@@ -1,11 +1,12 @@
 
 import OfferCard from '../../components/offerCard';
-import { nanoid } from 'nanoid';
+import { OfferType } from '../../components/app/app';
 
-type MainPageProps = {offersCount: number};
+type MainPageProps = {
+  offers: OfferType[]
+}
 
-export default function MainPage(props: MainPageProps): JSX.Element{
-  const count: number = props.offersCount;
+function MainPage({offers}: MainPageProps): JSX.Element{
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -95,7 +96,7 @@ export default function MainPage(props: MainPageProps): JSX.Element{
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {Array.from({length: count}).map(() => <OfferCard key={nanoid()}/>)}
+                {offers.map((offerItem) => <OfferCard offer={offerItem}/>)}
               </div>
             </section>
             <div className="cities__right-section">
@@ -107,3 +108,5 @@ export default function MainPage(props: MainPageProps): JSX.Element{
     </div>
   );
 }
+
+export default  MainPage;
