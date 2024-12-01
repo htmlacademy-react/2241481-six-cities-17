@@ -1,38 +1,39 @@
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { OfferType } from '../offerCard';
+import { AppRoute } from '../consts';
 import MainPage from '../../pages/main/mainPage';
-
-type OfferType = {
-  id: string
-  title: string
-  type: string
-  price: number
-  city: {
-    name: string
-    location: {
-      latitude: number
-      longitude: number
-      zoom: number
-    }
-  }
-  location: {
-    latitude: number
-    longitude: number
-    zoom: number
-  }
-  isFavorite: boolean
-  isPremium: boolean
-  rating: number
-  previewImage: string
-};
+import FavoritesPage from '../../pages/favorites/favoritesPage';
+import LoginPage from '../../pages/login/loginPage';
+import OfferPage from '../../pages/offer/offerPage';
+import PageNotFoundPage from '../../pages/not-found/not-found';
+import PrivateRoute from '../privateRoute';
 
 type AppProps = {
-  offers: OfferType[]
+  offers: OfferType[];
 }
 
 function App({offers}: AppProps): JSX.Element{
   return (
-    <MainPage offers={offers}/>
+    <BrowserRouter>
+      <Routes>
+        <Route path={AppRoute.Root}>
+          <Route index element={<MainPage offers={offers} />} />
+          <Route path={AppRoute.LogIn} element={<LoginPage />}></Route>
+          <Route path={AppRoute.Offer} element={<OfferPage />}></Route>
+          <Route
+            path={AppRoute.Favorites}
+            element={
+              <PrivateRoute isRedirectRequired = {false} navigatePath={AppRoute.LogIn}>
+                <FavoritesPage />
+              </PrivateRoute>
+            }
+          />
+          <Route path={AppRoute.NotFound} element={<PageNotFoundPage />}></Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+
   );
 }
 
 export default App;
-export type {OfferType};
