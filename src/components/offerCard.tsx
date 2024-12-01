@@ -22,11 +22,11 @@ type OfferType = {
   previewImage: string;
 };
 
-// type OfferCardProps = {
-//   offer: OfferType;
-// }
+ type OfferCardProps = {
+   offer: OfferType;
+}
 
-function OfferCard(): JSX.Element {
+function OfferCard({offer}: OfferCardProps): JSX.Element {
   return (
     <article className="cities__card place-card">
       <div className="place-card__mark">
