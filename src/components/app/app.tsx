@@ -32,7 +32,6 @@ function App({offers}: AppProps): JSX.Element{
         </Route>
       </Routes>
     </BrowserRouter>
-
   );
 }
 
