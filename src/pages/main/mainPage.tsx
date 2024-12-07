@@ -1,13 +1,20 @@
-
-import OfferCard from '../../components/offerCard';
-import { OfferType } from '../../components/offerCard';
+import { useState } from 'react';
+import OfferType from '../../types/offerType';
 import Header from '../../components/common/header';
+import OfferCardsList from '../../components/offers-list/offers-list';
 
-type MainPageProps = {
+type Props = {
   offers: OfferType[];
 }
 
-function MainPage({offers}: MainPageProps): JSX.Element{
+function MainPage({offers}: Props): JSX.Element{
+  const [activeOffer, setActiveOffer] = useState<string | null>(null);
+
+  const handleActiveOfferChange = (id: string | null) => {
+    setActiveOffer(id);
+  };
+
+  console.log(activeOffer);
   return (
     <div className="page page--gray page--main">
       <Header isNavigationRequired />
@@ -69,9 +76,7 @@ function MainPage({offers}: MainPageProps): JSX.Element{
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {offers.map((offerItem) => <OfferCard offer={offerItem} key={offerItem.id}/>)}
-              </div>
+              <OfferCardsList onActiveOfferCardChanged={handleActiveOfferChange} offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

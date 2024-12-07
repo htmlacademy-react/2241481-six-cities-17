@@ -1,12 +1,16 @@
 import OfferType from '../types/offerType';
 
- type OfferCardProps = {
-   offer: OfferType;
+ type Props = {
+   offer: OfferType ;
+   onActiveOfferCardChanged: (id: string | null) => void;
 }
 
-function OfferCard({offer}: OfferCardProps): JSX.Element {
+function OfferCard({offer, onActiveOfferCardChanged}: Props): JSX.Element {
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card"
+      onMouseEnter={() => onActiveOfferCardChanged(offer.id)}
+      onMouseLeave={() => onActiveOfferCardChanged(null)}
+    >
       {offer.isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>
@@ -46,4 +50,3 @@ function OfferCard({offer}: OfferCardProps): JSX.Element {
 }
 
 export default OfferCard;
-export type {OfferType};
