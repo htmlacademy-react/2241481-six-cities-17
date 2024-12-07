@@ -1,6 +1,7 @@
 import Header from '../../components/common/header';
 import OfferType from '../../types/offerType';
 import FavoriteGroup from './favoritesGroup';
+import { Link } from 'react-router-dom';
 
 type Props={
   favorites: OfferType[];
@@ -36,9 +37,9 @@ export default function FavoritesPage({favorites}: Props): JSX.Element {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link className="footer__logo-link" to="main.html">
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-        </a>
+        </Link>
       </footer>
     </div>
   );

@@ -1,4 +1,5 @@
 import OfferType from '../types/offerType';
+import { Link } from 'react-router-dom';
 
  type Props = {
    offer: OfferType ;
@@ -17,9 +18,9 @@ function OfferCard({offer, onActiveOfferCardChanged}: Props): JSX.Element {
         </div> :
         null }
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to="#">
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -41,7 +42,7 @@ function OfferCard({offer, onActiveOfferCardChanged}: Props): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">Beautiful &amp; luxurious apartment at great location</a>
+          <Link to="#">Beautiful &amp; luxurious apartment at great location</Link>
         </h2>
         <p className="place-card__type">Apartment</p>
       </div>
