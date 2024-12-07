@@ -6,7 +6,7 @@ type props = {
   onActiveOfferCardChanged: (id: string | null) => void;
 }
 
-function OfferCardsList({offers, onActiveOfferCardChanged}: props){
+function OfferCardsList({offers, onActiveOfferCardChanged}: props) : JSX.Element{
   return(
     <div className="cities__places-list places__list tabs__content">
       {offers.map(
