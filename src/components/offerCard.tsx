@@ -1,5 +1,6 @@
 import OfferType from '../types/offerType';
 import { Link } from 'react-router-dom';
+import { AppRoute } from './consts';
 
  type Props = {
    offer: OfferType ;
@@ -18,7 +19,7 @@ function OfferCard({offer, onActiveOfferCardChanged}: Props): JSX.Element {
         </div> :
         null }
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to="#">
+        <Link to={AppRoute.Offer}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
@@ -42,7 +43,7 @@ function OfferCard({offer, onActiveOfferCardChanged}: Props): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to="#">Beautiful &amp; luxurious apartment at great location</Link>
+          <Link to={AppRoute.LogIn}>Beautiful &amp; luxurious apartment at great location</Link>
         </h2>
         <p className="place-card__type">Apartment</p>
       </div>
