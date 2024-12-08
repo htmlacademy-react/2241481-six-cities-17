@@ -53,7 +53,7 @@ export default function MainEmptyPage(): JSX.Element {
                 </Link>
               </li>
               <li className="locations__item">
-                <Link className="locations__item-link tabs__item">
+                <Link className="locations__item-link tabs__item" to="#">
                   <span>Amsterdam</span>
                 </Link>
               </li>

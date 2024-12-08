@@ -20,7 +20,6 @@ function groupByCityName(offers: OfferType[]): Record<string, OfferType[]> {
 
 export default function FavoritesPage({favorites}: Props): JSX.Element {
   const favoritesGroups: Record<string, OfferType[]> = groupByCityName(favorites);
-  console.log(favorites);
   return (
     <div className="page">
       <Header isNavigationRequired />

@@ -30,7 +30,6 @@ function AddCommentForm(): JSX.Element {
   const handleSubmitForm = (e: ChangeEvent<HTMLFormElement>) =>{
     e.preventDefault();
     setFormData(initialState);
-    console.log(e.target);
   };
 
   return(

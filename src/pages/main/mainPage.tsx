@@ -14,8 +14,6 @@ function MainPage({offers}: Props): JSX.Element{
   const handleActiveOfferChange = (id: string | null) => {
     setActiveOffer(id);
   };
-
-  console.log(activeOffer);
   return (
     <div className="page page--gray page--main">
       <Header isNavigationRequired />
@@ -40,7 +38,7 @@ function MainPage({offers}: Props): JSX.Element{
                 </Link>
               </li>
               <li className="locations__item">
-                <Link className="locations__item-link tabs__item tabs__item--active">
+                <Link className="locations__item-link tabs__item tabs__item--active" to="#">
                   <span>Amsterdam</span>
                 </Link>
               </li>
