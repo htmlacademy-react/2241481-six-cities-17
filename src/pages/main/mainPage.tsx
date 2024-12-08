@@ -1,13 +1,19 @@
-
-import OfferCard from '../../components/offerCard';
-import { OfferType } from '../../components/offerCard';
+import { useState } from 'react';
+import OfferType from '../../types/offerType';
 import Header from '../../components/common/header';
+import OfferCardsList from '../../components/offers-list/offers-list';
+import { Link } from 'react-router-dom';
 
-type MainPageProps = {
+type Props = {
   offers: OfferType[];
 }
 
-function MainPage({offers}: MainPageProps): JSX.Element{
+function MainPage({offers}: Props): JSX.Element{
+  const [activeOffer, setActiveOffer] = useState<string | null>(null);
+
+  const handleActiveOfferChange = (id: string | null) => {
+    setActiveOffer(id);
+  };
   return (
     <div className="page page--gray page--main">
       <Header isNavigationRequired />
@@ -17,34 +23,34 @@ function MainPage({offers}: MainPageProps): JSX.Element{
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link className="locations__item-link tabs__item" to="#">
                   <span>Paris</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link className="locations__item-link tabs__item" to="#">
                   <span>Cologne</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link className="locations__item-link tabs__item" to="#">
                   <span>Brussels</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
+                <Link className="locations__item-link tabs__item tabs__item--active" to="#">
                   <span>Amsterdam</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link className="locations__item-link tabs__item" to="#">
                   <span>Hamburg</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link className="locations__item-link tabs__item" to="#">
                   <span>Dusseldorf</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </section>
@@ -69,13 +75,11 @@ function MainPage({offers}: MainPageProps): JSX.Element{
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {offers.map((offerItem) => <OfferCard offer={offerItem} key={offerItem.id}/>)}
-              </div>
+              <OfferCardsList onActiveOfferCardChanged={handleActiveOfferChange} offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
-            </div>
+            </div><div className={activeOffer ? activeOffer : 'undefined'}></div>
           </div>
         </div>
       </main>
