@@ -1,41 +1,27 @@
-type OfferType = {
-  id: string;
-  title: string;
-  type: string;
-  price: number;
-  city: {
-    name: string;
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
-  };
-  location: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-  };
-  isFavorite: boolean;
-  isPremium: boolean;
-  rating: number;
-  previewImage: string;
-};
+import OfferType from '../types/offerType';
+import { Link } from 'react-router-dom';
+import { AppRoute } from './consts';
 
- type OfferCardProps = {
-   offer: OfferType;
+ type Props = {
+   offer: OfferType ;
+   onActiveOfferCardChanged?: (id: string | null) => void;
 }
 
-function OfferCard({offer}: OfferCardProps): JSX.Element {
+function OfferCard({offer, onActiveOfferCardChanged}: Props): JSX.Element {
   return (
-    <article className="cities__card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+    <article className="cities__card place-card"
+      onMouseEnter={() => onActiveOfferCardChanged && onActiveOfferCardChanged(offer.id)}
+      onMouseLeave={() => onActiveOfferCardChanged && onActiveOfferCardChanged(null)}
+    >
+      {offer.isPremium ?
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div> :
+        null }
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place image"/>
-        </a>
+        <Link to={AppRoute.Offer}>
+          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -57,7 +43,7 @@ function OfferCard({offer}: OfferCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">Beautiful &amp; luxurious apartment at great location</a>
+          <Link to={AppRoute.LogIn}>Beautiful &amp; luxurious apartment at great location</Link>
         </h2>
         <p className="place-card__type">Apartment</p>
       </div>
@@ -66,4 +52,3 @@ function OfferCard({offer}: OfferCardProps): JSX.Element {
 }
 
 export default OfferCard;
-export type {OfferType};

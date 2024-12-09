@@ -1,5 +1,5 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import { OfferType } from '../offerCard';
+import OfferType from '../../types/offerType';
 import { AppRoute } from '../consts';
 import MainPage from '../../pages/main/mainPage';
 import FavoritesPage from '../../pages/favorites/favoritesPage';
@@ -10,9 +10,10 @@ import PrivateRoute from '../privateRoute';
 
 type AppProps = {
   offers: OfferType[];
+  favorites: OfferType[];
 }
 
-function App({offers}: AppProps): JSX.Element{
+function App({offers, favorites}: AppProps): JSX.Element{
   return (
     <BrowserRouter>
       <Routes>
@@ -24,7 +25,7 @@ function App({offers}: AppProps): JSX.Element{
             path={AppRoute.Favorites}
             element={
               <PrivateRoute isRedirectRequired = {false} navigatePath={AppRoute.LogIn}>
-                <FavoritesPage />
+                <FavoritesPage favorites={favorites}/>
               </PrivateRoute>
             }
           />
