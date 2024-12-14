@@ -33,7 +33,7 @@ function useMap(mapRef: mapRefType, city: cityType) : Map|null{
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef]);
+  }, [mapRef, city]);
 
   return map;
 }

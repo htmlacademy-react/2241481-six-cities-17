@@ -14,11 +14,12 @@ type AppProps = {
 }
 
 function App({offers, favorites}: AppProps): JSX.Element{
+  const filteredOffers = offers.filter((offer)=>(offer.city.name === 'Amsterdam'));
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Root}>
-          <Route index element={<MainPage offers={offers} />} />
+          <Route index element={<MainPage offers={filteredOffers} />} />
           <Route path={AppRoute.LogIn} element={<LoginPage />}></Route>
           <Route path={AppRoute.Offer} element={<OfferPage />}></Route>
           <Route

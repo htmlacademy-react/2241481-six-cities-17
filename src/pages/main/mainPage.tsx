@@ -4,6 +4,7 @@ import Header from '../../components/common/header';
 import OfferCardsList from '../../components/offers-list/offers-list';
 import { Link } from 'react-router-dom';
 import Map from '../../components/map/map';
+import { DEFAULT_CITY } from '../../mocks/default-city';
 
 type Props = {
   offers: OfferType[];
@@ -11,10 +12,12 @@ type Props = {
 
 function MainPage({offers}: Props): JSX.Element{
   const [activeOffer, setActiveOffer] = useState<string | null>(null);
+  // const [activeCity, setActiveCity] = useState<string>('Paris');
 
   const handleActiveOfferChange = (id: string | null) => {
     setActiveOffer(id);
   };
+
   return (
     <div className="page page--gray page--main">
       <Header isNavigationRequired />
@@ -79,9 +82,8 @@ function MainPage({offers}: Props): JSX.Element{
               <OfferCardsList onActiveOfferCardChanged={handleActiveOfferChange} offers={offers}/>
             </section>
             <div className="cities__right-section">
-              <Map/>
-              {/* <section className="cities__map map"></section> */}
-            </div><div className={activeOffer ? activeOffer : 'undefined'}></div>
+              <Map city={DEFAULT_CITY} offers={offers} activeOfferId={activeOffer}/>
+            </div>
           </div>
         </div>
       </main>
