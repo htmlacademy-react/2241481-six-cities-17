@@ -3,6 +3,7 @@ import OfferType from '../../types/offerType';
 import Header from '../../components/common/header';
 import OfferCardsList from '../../components/offers-list/offers-list';
 import { Link } from 'react-router-dom';
+import Map from '../../components/map/map';
 
 type Props = {
   offers: OfferType[];
@@ -78,7 +79,8 @@ function MainPage({offers}: Props): JSX.Element{
               <OfferCardsList onActiveOfferCardChanged={handleActiveOfferChange} offers={offers}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map/>
+              {/* <section className="cities__map map"></section> */}
             </div><div className={activeOffer ? activeOffer : 'undefined'}></div>
           </div>
         </div>
