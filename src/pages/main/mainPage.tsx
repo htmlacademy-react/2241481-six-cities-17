@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import OfferType from '../../types/offerType';
+import OfferType from '../../types/offer-type';
 import Header from '../../components/common/header';
 import OfferCardsList from '../../components/offers-list/offers-list';
 import { Link } from 'react-router-dom';

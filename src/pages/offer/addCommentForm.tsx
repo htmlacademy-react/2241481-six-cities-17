@@ -26,6 +26,8 @@ function AddCommentForm(): JSX.Element {
 
     if (formData.review.length > 5){
       setIsSubmitButtonDisabled(false);
+    }else {
+      setIsSubmitButtonDisabled(true);
     }
 
   };
