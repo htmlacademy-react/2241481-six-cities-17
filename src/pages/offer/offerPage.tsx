@@ -1,8 +1,16 @@
 import { Link } from 'react-router-dom';
 import OfferReviwesList from '../../components/offer-reviews/offer-reviews';
 import mockReviews from '../../mocks/reviews';
+import Map from '../../components/map/map';
+import { DEFAULT_CITY } from '../../mocks/default-city';
+import OfferType from '../../types/offer-type';
 
-export default function OfferPage(): JSX.Element {
+type Props = {
+  nearByOffers: OfferType[];
+  activeOfferId: string;
+}
+
+export default function OfferPage({nearByOffers, activeOfferId}: Props): JSX.Element {
   return (
     <div className="page">
       <header className="header">
@@ -155,7 +163,7 @@ export default function OfferPage(): JSX.Element {
               <OfferReviwesList reviews={mockReviews} />
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <Map city={DEFAULT_CITY} offers={nearByOffers} activeOfferId={activeOfferId} className='offer__map map' />
         </section>
         <div className="container">
           <section className="near-places places">

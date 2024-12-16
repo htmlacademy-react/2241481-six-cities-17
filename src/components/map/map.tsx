@@ -9,9 +9,10 @@ type MapProps = {
   city: cityType;
   offers: OfferType[];
   activeOfferId: string | null;
+  className: string;
 }
 
-function Map({city, offers, activeOfferId}: MapProps): JSX.Element{
+function Map({city, offers, activeOfferId, className}: MapProps): JSX.Element{
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -49,7 +50,7 @@ function Map({city, offers, activeOfferId}: MapProps): JSX.Element{
   }, [map, offers, activeOfferId]);
 
   return (
-    <section className="cities__map map" ref={mapRef}/>
+    <section className={className} ref={mapRef}/>
   );
 }
 
