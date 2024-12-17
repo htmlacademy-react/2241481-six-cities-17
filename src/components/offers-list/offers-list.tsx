@@ -1,4 +1,4 @@
-import OfferType from '../../types/offerType';
+import OfferType from '../../types/offer-type';
 import OfferCard from '../offerCard';
 
 type props = {

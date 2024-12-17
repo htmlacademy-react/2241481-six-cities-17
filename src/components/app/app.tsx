@@ -1,5 +1,5 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import OfferType from '../../types/offerType';
+import OfferType from '../../types/offer-type';
 import { AppRoute } from '../consts';
 import MainPage from '../../pages/main/mainPage';
 import FavoritesPage from '../../pages/favorites/favoritesPage';
@@ -21,7 +21,15 @@ function App({offers, favorites}: AppProps): JSX.Element{
         <Route path={AppRoute.Root}>
           <Route index element={<MainPage offers={filteredOffers} />} />
           <Route path={AppRoute.LogIn} element={<LoginPage />}></Route>
-          <Route path={AppRoute.Offer} element={<OfferPage />}></Route>
+          <Route
+            path={AppRoute.Offer}
+            element={
+              <OfferPage
+                nearByOffers={filteredOffers.slice(0, 4)}
+                activeOfferId={filteredOffers[0].id}
+              />
+            }
+          />
           <Route
             path={AppRoute.Favorites}
             element={

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import OfferType from '../../types/offerType';
+import OfferType from '../../types/offer-type';
 import Header from '../../components/common/header';
 import OfferCardsList from '../../components/offers-list/offers-list';
 import { Link } from 'react-router-dom';
@@ -12,7 +12,6 @@ type Props = {
 
 function MainPage({offers}: Props): JSX.Element{
   const [activeOffer, setActiveOffer] = useState<string | null>(null);
-  // const [activeCity, setActiveCity] = useState<string>('Paris');
 
   const handleActiveOfferChange = (id: string | null) => {
     setActiveOffer(id);
@@ -82,7 +81,12 @@ function MainPage({offers}: Props): JSX.Element{
               <OfferCardsList onActiveOfferCardChanged={handleActiveOfferChange} offers={offers}/>
             </section>
             <div className="cities__right-section">
-              <Map city={DEFAULT_CITY} offers={offers} activeOfferId={activeOffer}/>
+              <Map
+                city={DEFAULT_CITY}
+                offers={offers}
+                activeOfferId={activeOffer}
+                className={'cities__map map'}
+              />
             </div>
           </div>
         </div>

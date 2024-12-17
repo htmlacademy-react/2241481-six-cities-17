@@ -1,5 +1,5 @@
 import Header from '../../components/common/header';
-import OfferType from '../../types/offerType';
+import OfferType from '../../types/offer-type';
 import FavoriteGroup from './favoritesGroup';
 import { Link } from 'react-router-dom';
 

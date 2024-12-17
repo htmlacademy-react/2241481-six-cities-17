@@ -3,15 +3,16 @@ import { useEffect, useRef } from 'react';
 import useMap from '../../hooks/useMap';
 import cityType from '../../types/city-type';
 import { PIN_MARKER_URL, PIN_MARKER_ACTIVE_URL } from '../../data/leaflet-data';
-import OfferType from '../../types/offerType';
+import OfferType from '../../types/offer-type';
 
 type MapProps = {
   city: cityType;
   offers: OfferType[];
   activeOfferId: string | null;
+  className: string;
 }
 
-function Map({city, offers, activeOfferId}: MapProps): JSX.Element{
+function Map({city, offers, activeOfferId, className}: MapProps): JSX.Element{
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -49,7 +50,7 @@ function Map({city, offers, activeOfferId}: MapProps): JSX.Element{
   }, [map, offers, activeOfferId]);
 
   return (
-    <section className="cities__map map" ref={mapRef}/>
+    <section className={className} ref={mapRef}/>
   );
 }
 

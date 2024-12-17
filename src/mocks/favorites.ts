@@ -1,4 +1,4 @@
-import OfferType from '../types/offerType';
+import OfferType from '../types/offer-type';
 
 const mockFavorites: OfferType[] = [
   {

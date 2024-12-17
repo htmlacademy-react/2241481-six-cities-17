@@ -1,5 +1,5 @@
 import OfferCard from '../../components/offerCard';
-import OfferType from '../../types/offerType';
+import OfferType from '../../types/offer-type';
 import { Link } from 'react-router-dom';
 
 type Props = {
