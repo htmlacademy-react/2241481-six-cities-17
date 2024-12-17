@@ -7,6 +7,7 @@ import LoginPage from '../../pages/login/loginPage';
 import OfferPage from '../../pages/offer/offerPage';
 import PageNotFoundPage from '../../pages/not-found/not-found';
 import PrivateRoute from '../privateRoute';
+import { DEFAULT_CITY } from '../../mocks/default-city';
 
 type AppProps = {
   offers: OfferType[];
@@ -14,7 +15,7 @@ type AppProps = {
 }
 
 function App({offers, favorites}: AppProps): JSX.Element{
-  const filteredOffers = offers.filter((offer)=>(offer.city.name === 'Amsterdam'));
+  const filteredOffers = offers.filter((offer)=>(offer.city.name === DEFAULT_CITY.name));
   return (
     <BrowserRouter>
       <Routes>
@@ -24,10 +25,7 @@ function App({offers, favorites}: AppProps): JSX.Element{
           <Route
             path={AppRoute.Offer}
             element={
-              <OfferPage
-                nearByOffers={filteredOffers.slice(0, 4)}
-                activeOfferId={filteredOffers[0].id}
-              />
+              <OfferPage />
             }
           />
           <Route
