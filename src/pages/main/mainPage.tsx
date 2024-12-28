@@ -2,10 +2,10 @@ import { useState } from 'react';
 import Header from '../../components/common/header';
 import OfferCardsList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
-import { DEFAULT_CITY } from '../../mocks/default-city';
 import CityTabs from '../../components/city-tabs/city-tabs';
 import { useAppSelector } from '../../hooks';
-
+import CITIES_MAP from '../../data/cities';
+import OffersEmpty from '../offer/offers-empty';
 
 function MainPage(): JSX.Element{
   const [activeOffer, setActiveOffer] = useState<string | null>(null);
@@ -15,6 +15,7 @@ function MainPage(): JSX.Element{
 
   const offers = useAppSelector((state) => state.offers);
   const currentCity = useAppSelector((state) => state.currentCity);
+  console.log('mainPage render: ', currentCity);
 
   return (
     <div className="page page--gray page--main">
@@ -42,11 +43,13 @@ function MainPage(): JSX.Element{
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OfferCardsList onActiveOfferCardChanged={handleActiveOfferChange} offers={offers}/>
+              {offers.length > 0 ?
+                <OfferCardsList onActiveOfferCardChanged={handleActiveOfferChange} offers={offers}/> :
+                <OffersEmpty cityName={currentCity}/>}
             </section>
             <div className="cities__right-section">
               <Map
-                city={DEFAULT_CITY}
+                city={CITIES_MAP[currentCity] ? CITIES_MAP[currentCity] : CITIES_MAP['Amsterdam']}
                 offers={offers}
                 activeOfferId={activeOffer}
                 className={'cities__map map'}

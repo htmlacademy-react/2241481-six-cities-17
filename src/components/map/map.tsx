@@ -47,7 +47,7 @@ function Map({city, offers, activeOfferId, className}: MapProps): JSX.Element{
       });
     }
 
-  }, [map, offers, activeOfferId]);
+  }, [map, city, offers, activeOfferId]);
 
   return (
     <section className={className} ref={mapRef}/>

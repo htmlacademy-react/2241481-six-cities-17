@@ -1,4 +1,4 @@
-import { CITIES } from '../../data/data';
+import CITIES_MAP from '../../data/cities';
 import Tab from './tab';
 
 type Props = {
@@ -10,8 +10,10 @@ function CityTabs({currentCity}: Props): JSX.Element{
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {CITIES.map((name) =>
-            <Tab cityName={name} isActive={name === currentCity} key={name}/>)}
+          {Object.keys(CITIES_MAP).map(
+            (name)=>(
+              <Tab cityName={name} isActive={name === currentCity} key={name}/>
+            ))}
         </ul>
       </section>
     </div>
