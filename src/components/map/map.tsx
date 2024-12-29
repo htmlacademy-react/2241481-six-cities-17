@@ -40,11 +40,10 @@ function Map({city, offers, activeOfferId, className}: MapProps): JSX.Element{
         marker
           .setIcon(offer.id === activeOfferId ? iconActive : icon)
           .addTo(markerLayer);
-
-        return ():void => {
-          map.removeLayer(markerLayer);
-        };
       });
+      return () => {
+        map.removeLayer(markerLayer);
+      };
     }
 
   }, [map, city, offers, activeOfferId]);
