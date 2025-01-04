@@ -43,9 +43,9 @@ function OfferCard({offer, onActiveOfferCardChanged}: Props): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.LogIn}>Beautiful &amp; luxurious apartment at great location</Link>
+          <Link to={AppRoute.LogIn}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{offer.type}</p>
       </div>
     </article>
   );
