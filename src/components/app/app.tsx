@@ -22,7 +22,8 @@ function App({favorites}: AppProps): JSX.Element{
 
   useEffect(()=>{
     dispatch(getOffers(mockOffers));
-  });
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Routes>
