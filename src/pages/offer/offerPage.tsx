@@ -4,13 +4,15 @@ import mockReviews from '../../mocks/reviews';
 import Map from '../../components/map/map';
 import { DEFAULT_CITY } from '../../mocks/default-city';
 import OfferType from '../../types/offer-type';
+import mockOffers from '../../mocks/offers';
 
-type Props = {
-  nearByOffers: OfferType[];
-  activeOfferId: string;
-}
+export default function OfferPage(): JSX.Element {
+  const nearByOffers: OfferType[] = mockOffers
+    .filter(
+      (offer)=>(offer.city.name === DEFAULT_CITY.name)
+    ).slice(0, 4);
 
-export default function OfferPage({nearByOffers, activeOfferId}: Props): JSX.Element {
+  const activeOfferId: string = nearByOffers[0].id;
   return (
     <div className="page">
       <header className="header">

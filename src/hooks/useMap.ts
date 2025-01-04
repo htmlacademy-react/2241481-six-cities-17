@@ -33,7 +33,21 @@ function useMap(mapRef: mapRefType, city: cityType) : Map|null{
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, city]);
+  }, [mapRef, city, setMap]);
+
+  useEffect(() => {
+    if (map) {
+      const centerOfMap = map.getCenter();
+      if (centerOfMap.lat !== city.lat || centerOfMap.lng !== city.lng) {
+        map.flyTo({
+          lat: city.lat,
+          lng: city.lng
+        }, city.zoom, {
+          duration: 2.0
+        });
+      }
+    }
+  }, [city, map]);
 
   return map;
 }

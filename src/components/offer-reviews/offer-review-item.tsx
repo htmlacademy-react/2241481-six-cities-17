@@ -5,6 +5,11 @@ type Props = {
 }
 
 function ReviewItem ({review}: Props): JSX.Element{
+  const reviewDate: string = (new Date(review.date)).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+  });
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -31,7 +36,7 @@ function ReviewItem ({review}: Props): JSX.Element{
         <p className="reviews__text">
           {review.comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
+        <time className="reviews__time" dateTime={review.date}>{reviewDate}</time>
       </div>
     </li>
   );
