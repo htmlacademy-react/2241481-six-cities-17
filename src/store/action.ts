@@ -1,8 +1,13 @@
 import { createAction } from '@reduxjs/toolkit';
 import OfferType from '../types/offer-type';
+import { SortItem } from '../components/consts';
 
 const changeCity = createAction<string>('changeCity');
-const getOffers = createAction<OfferType[]>('getOffers');
+const setOffers = createAction<OfferType[]>('setOffers');
+const setSotringType = createAction<SortItem>('setSortingType');
 
-export {changeCity};
-export {getOffers};
+export {
+  changeCity,
+  setOffers,
+  setSotringType};
+

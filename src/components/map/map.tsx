@@ -18,14 +18,14 @@ function Map({city, offers, activeOfferId, className}: MapProps): JSX.Element{
 
   const icon = new Icon({
     iconUrl: PIN_MARKER_URL,
-    iconSize: [40, 40],
-    anchor: [20, 40],
+    iconSize: [28, 40],
+    anchor: [14, 40],
   });
 
   const iconActive = new Icon({
     iconUrl: PIN_MARKER_ACTIVE_URL,
-    iconSize: [40, 40],
-    anchor: [20, 40],
+    iconSize: [28, 40],
+    anchor: [14, 40],
   });
 
   useEffect(()=>{

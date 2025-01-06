@@ -12,5 +12,16 @@ enum AppRoute{
     NotFound = '*'
 }
 
-export { LoginStatus };
-export { AppRoute };
+enum SortItem {
+    Popular = 'Popular',
+    PriceLow = 'Price: low to high',
+    PriceHigh = 'Price: hihg to low',
+    Rating = 'Top rate first'
+}
+
+export {
+  LoginStatus,
+  AppRoute,
+  SortItem
+};
+

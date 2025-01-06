@@ -9,7 +9,7 @@ import PageNotFoundPage from '../../pages/not-found/not-found';
 import PrivateRoute from '../privateRoute';
 import { useEffect } from 'react';
 import mockOffers from '../../mocks/offers';
-import { getOffers } from '../../store/action';
+import { setOffers } from '../../store/action';
 import { useAppDispatch } from '../../hooks';
 
 
@@ -21,8 +21,9 @@ function App({favorites}: AppProps): JSX.Element{
   const dispatch = useAppDispatch();
 
   useEffect(()=>{
-    dispatch(getOffers(mockOffers));
-  });
+    dispatch(setOffers(mockOffers));
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Routes>
