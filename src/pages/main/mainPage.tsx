@@ -20,7 +20,7 @@ function MainPage(): JSX.Element{
   return (
     <div className="page page--gray page--main">
       <Header isNavigationRequired />
-      {isDataLoading ? <Spinner /> : ''}
+      {isDataLoading && <Spinner />}
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <CityTabs currentCity={currentCity}/>
