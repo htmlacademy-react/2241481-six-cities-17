@@ -8,7 +8,7 @@ import OfferPage from '../../pages/offer/offerPage';
 import PageNotFoundPage from '../../pages/not-found/not-found';
 import PrivateRoute from '../privateRoute';
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch } from '../../hooks';
 import fetchOffers from '../../store/action-api';
 
 
@@ -18,7 +18,6 @@ type AppProps = {
 
 function App({favorites}: AppProps): JSX.Element{
   const dispatch = useAppDispatch();
-  //const currentCity = useAppSelector((store) => store.currentCity);
 
   useEffect(()=>{
     dispatch(fetchOffers());
