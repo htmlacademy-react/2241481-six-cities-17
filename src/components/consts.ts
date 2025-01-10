@@ -9,8 +9,11 @@ enum AppRoute{
     LogIn = '/login',
     Favorites = '/favorites',
     Offer = '/offer:id',
-    Offers = '/offers',
     NotFound = '*'
+}
+
+enum ApiRoute{
+    Offers = '/offers',
 }
 
 enum SortItem {
@@ -23,6 +26,7 @@ enum SortItem {
 export {
   LoginStatus,
   AppRoute,
+  ApiRoute,
   SortItem
 };
 

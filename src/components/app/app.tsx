@@ -18,11 +18,11 @@ type AppProps = {
 
 function App({favorites}: AppProps): JSX.Element{
   const dispatch = useAppDispatch();
-  const currentCity = useAppSelector((store) => store.currentCity);
+  //const currentCity = useAppSelector((store) => store.currentCity);
 
   useEffect(()=>{
     dispatch(fetchOffers());
-  }, [dispatch, currentCity]);
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
