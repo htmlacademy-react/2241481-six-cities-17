@@ -12,6 +12,10 @@ enum AppRoute{
     NotFound = '*'
 }
 
+enum ApiRoute{
+    Offers = '/offers',
+}
+
 enum SortItem {
     Popular = 'Popular',
     PriceLow = 'Price: low to high',
@@ -22,6 +26,7 @@ enum SortItem {
 export {
   LoginStatus,
   AppRoute,
+  ApiRoute,
   SortItem
 };
 

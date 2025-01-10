@@ -8,9 +8,8 @@ import OfferPage from '../../pages/offer/offerPage';
 import PageNotFoundPage from '../../pages/not-found/not-found';
 import PrivateRoute from '../privateRoute';
 import { useEffect } from 'react';
-import mockOffers from '../../mocks/offers';
-import { setOffers } from '../../store/action';
 import { useAppDispatch } from '../../hooks';
+import fetchOffers from '../../store/action-api';
 
 
 type AppProps = {
@@ -21,7 +20,7 @@ function App({favorites}: AppProps): JSX.Element{
   const dispatch = useAppDispatch();
 
   useEffect(()=>{
-    dispatch(setOffers(mockOffers));
+    dispatch(fetchOffers());
   }, [dispatch]);
 
   return (

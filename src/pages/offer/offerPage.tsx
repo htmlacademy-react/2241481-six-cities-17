@@ -4,10 +4,11 @@ import mockReviews from '../../mocks/reviews';
 import Map from '../../components/map/map';
 import { DEFAULT_CITY } from '../../mocks/default-city';
 import OfferType from '../../types/offer-type';
-import mockOffers from '../../mocks/offers';
+import { useAppSelector } from '../../hooks';
 
 export default function OfferPage(): JSX.Element {
-  const nearByOffers: OfferType[] = mockOffers
+  const offers: OfferType[] = useAppSelector((store) => store.offers);
+  const nearByOffers: OfferType[] = offers
     .filter(
       (offer)=>(offer.city.name === DEFAULT_CITY.name)
     ).slice(0, 4);

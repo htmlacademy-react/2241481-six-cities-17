@@ -1,9 +1,7 @@
 import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { changeCity, setOffers } from '../../store/action';
+import { changeCity } from '../../store/action';
 import { useAppDispatch } from '../../hooks';
-import mockOffers from '../../mocks/offers';
-import { filterOffers } from '../../utils/utils';
 
 type Props = {
     cityName: string;
@@ -12,11 +10,8 @@ type Props = {
 
 function Tab({cityName, isActive}: Props): JSX.Element{
   const dispatch = useAppDispatch();
-
   const cityTabClickHandler = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
-    const filteredOffers = filterOffers(mockOffers, cityName);
-    dispatch(setOffers(filteredOffers));
     dispatch(changeCity(cityName));
   };
 
