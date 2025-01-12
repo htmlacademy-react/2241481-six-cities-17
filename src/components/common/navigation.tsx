@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../consts';
 
 function Navigation(): JSX.Element{
   return(
@@ -13,7 +14,7 @@ function Navigation(): JSX.Element{
           </Link>
         </li>
         <li className="header__nav-item">
-          <Link className="header__nav-link" to="#">
+          <Link className="header__nav-link" to={AppRoute.LogIn}>
             <span className="header__signout">Sign out</span>
           </Link>
         </li>

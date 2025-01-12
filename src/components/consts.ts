@@ -14,7 +14,8 @@ enum AppRoute{
 
 enum ApiRoute{
     Offers = '/offers',
-    Login = '/login'
+    Login = '/login',
+    Logout = '/logout'
 }
 
 enum SortItem {
