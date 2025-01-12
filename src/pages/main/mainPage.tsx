@@ -22,7 +22,7 @@ function MainPage(): JSX.Element{
 
   return (
     <div className="page page--gray page--main">
-      <Header isNavigationRequired />
+      <Header showUserLogin />
       {isDataLoading && <Spinner />}
       <main className={mainClassName}>
         <h1 className="visually-hidden">Cities</h1>

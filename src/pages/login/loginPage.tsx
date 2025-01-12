@@ -1,11 +1,13 @@
 import { FormEvent, useRef } from 'react';
 import Header from '../../components/common/header';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/action-api';
+import { AppRoute } from '../../components/consts';
 
 function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -16,13 +18,17 @@ function LoginPage(): JSX.Element {
       dispatch(login({
         login: loginRef.current.value,
         password: passwordRef.current.value
-      }));
+      })).then((response) => {
+        if (response.meta.requestStatus === 'fulfilled'){
+          navigate(AppRoute.Root);
+        }
+      });
     }
   };
 
   return (
     <div className="page page--gray page--login">
-      <Header isNavigationRequired={false} />
+      <Header showUserLogin={false} />
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">

@@ -1,16 +1,16 @@
 import Logo from './logo';
-import Navigation from './navigation';
+import UserLoginControl from './navigation';
 
 type HeaderProps = {
-  isNavigationRequired: boolean;
+  showUserLogin: boolean;
 }
 
-function Header({isNavigationRequired}: HeaderProps): JSX.Element {
+function Header({showUserLogin}: HeaderProps): JSX.Element {
   return(
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
-          {isNavigationRequired ? <><Logo /><Navigation /></> : <Logo />}
+          {showUserLogin ? <><Logo /><UserLoginControl /></> : <Logo />}
         </div>
       </div>
     </header>

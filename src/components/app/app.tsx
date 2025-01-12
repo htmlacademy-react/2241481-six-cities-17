@@ -39,7 +39,7 @@ function App({favorites}: AppProps): JSX.Element{
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute isRedirectRequired = {false} navigatePath={AppRoute.LogIn}>
+              <PrivateRoute navigatePath={AppRoute.LogIn}>
                 <FavoritesPage favorites={favorites}/>
               </PrivateRoute>
             }
