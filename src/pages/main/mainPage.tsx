@@ -5,6 +5,7 @@ import { useAppSelector } from '../../hooks';
 import MainPageContent from './main-page-content';
 import OffersEmpty from '../offer/offers-empty';
 import Spinner from '../../components/spinner/spinner';
+import OfferType from '../../types/offer-type';
 
 
 function MainPage(): JSX.Element{
@@ -13,15 +14,17 @@ function MainPage(): JSX.Element{
     setActiveOffer(id);
   };
 
-  const offers = useAppSelector((state) => state.offers);
+  const offers: OfferType[] = useAppSelector((state) => state.offers);
   const currentCity = useAppSelector((state) => state.currentCity);
   const isDataLoading = useAppSelector((state) => state.isDataLoading);
+
+  const mainClassName = `page__main page__main--index ${offers.length === 0 ? 'page__main--index-empty' : ''}`;
 
   return (
     <div className="page page--gray page--main">
       <Header isNavigationRequired />
       {isDataLoading && <Spinner />}
-      <main className="page__main page__main--index">
+      <main className={mainClassName}>
         <h1 className="visually-hidden">Cities</h1>
         <CityTabs currentCity={currentCity}/>
         {offers.length > 0 ?

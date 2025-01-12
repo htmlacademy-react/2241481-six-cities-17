@@ -9,7 +9,7 @@ import PageNotFoundPage from '../../pages/not-found/not-found';
 import PrivateRoute from '../privateRoute';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks';
-import fetchOffers from '../../store/action-api';
+import { checkAuth, fetchOffers } from '../../store/action-api';
 
 
 type AppProps = {
@@ -20,6 +20,7 @@ function App({favorites}: AppProps): JSX.Element{
   const dispatch = useAppDispatch();
 
   useEffect(()=>{
+    dispatch(checkAuth());
     dispatch(fetchOffers());
   }, [dispatch]);
 
