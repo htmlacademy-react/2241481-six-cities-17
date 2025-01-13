@@ -1,5 +1,5 @@
 import Logo from './logo';
-import UserLoginControl from './navigation';
+import UserLoginControl from './user-login-control';
 
 type HeaderProps = {
   showUserLogin: boolean;

@@ -1,16 +1,18 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, requireAuthorization, setOffers, setSotringType } from './action';
+import { changeCity, requireAuthorization, setCurrentUser, setOffers, setSotringType } from './action';
 import OfferType from '../types/offer-type';
 import CITIES_MAP from '../data/cities';
 import { AuthorizationStatus, SortItem } from '../components/consts';
 import { fetchOffers } from './action-api';
+import stateType from '../types/state';
 
-const initialState = {
+const initialState: stateType = {
   currentCity: CITIES_MAP['Paris'].name,
   offers: [] as OfferType[],
   sortingType: SortItem.Popular,
   isDataLoading: false,
-  authorizationStatus: AuthorizationStatus.Unknown
+  authorizationStatus: AuthorizationStatus.Unknown,
+  currentUser: null
 };
 
 const reducer = createReducer(initialState, (builder)=>{
@@ -32,6 +34,9 @@ const reducer = createReducer(initialState, (builder)=>{
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setCurrentUser, (state, action) => {
+      state.currentUser = action.payload;
     });
 });
 

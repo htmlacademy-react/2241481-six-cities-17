@@ -22,7 +22,7 @@ export default function FavoritesPage({favorites}: Props): JSX.Element {
   const favoritesGroups: Record<string, OfferType[]> = groupByCityName(favorites);
   return (
     <div className="page">
-      <Header isNavigationRequired />
+      <Header showUserLogin={false} />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
