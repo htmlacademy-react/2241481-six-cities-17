@@ -45,14 +45,10 @@ const login = createAsyncThunk<void, credentialsType, {
 }>(
   'user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
-    try{
-      const {data} = await api.post<userDataType>(ApiRoute.Login, {email, password});
-      saveToken(data.token);
-      dispatch(setCurrentUser(data));
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    } catch{
-      //console.log('login error');
-    }
+    const {data} = await api.post<userDataType>(ApiRoute.Login, {email, password});
+    saveToken(data.token);
+    dispatch(setCurrentUser(data));
+    dispatch(requireAuthorization(AuthorizationStatus.Auth));
   }
 );
 
@@ -63,14 +59,10 @@ const logout = createAsyncThunk<void, undefined, {
 }>(
   'user/logout',
   async (_args, {dispatch, extra: api}) => {
-    try{
-      await api.delete(ApiRoute.Logout);
-      dropToken();
-      dispatch(requireAuthorization(AuthorizationStatus.NotAuth));
-      dispatch(setCurrentUser(null));
-    } catch{
-      //console.log('logout error');
-    }
+    await api.delete(ApiRoute.Logout);
+    dropToken();
+    dispatch(requireAuthorization(AuthorizationStatus.NotAuth));
+    dispatch(setCurrentUser(null));
   }
 );
 
