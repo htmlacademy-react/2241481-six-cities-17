@@ -1,7 +1,7 @@
-enum LoginStatus{
-    AUTH = 'AUTH',
-    NOT_AUTH = 'NOT_AUTH',
-    UNKNOWN = 'UNKNOWN',
+enum AuthorizationStatus{
+    Auth = 'AUTH',
+    NotAuth = 'NOT_AUTH',
+    Unknown = 'UNKNOWN',
 }
 
 enum AppRoute{
@@ -14,6 +14,8 @@ enum AppRoute{
 
 enum ApiRoute{
     Offers = '/offers',
+    Login = '/login',
+    Logout = '/logout'
 }
 
 enum SortItem {
@@ -24,7 +26,7 @@ enum SortItem {
 }
 
 export {
-  LoginStatus,
+  AuthorizationStatus,
   AppRoute,
   ApiRoute,
   SortItem

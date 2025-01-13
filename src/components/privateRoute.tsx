@@ -1,14 +1,18 @@
 import { Navigate } from 'react-router-dom';
+import { useAppSelector } from '../hooks';
+import { AuthorizationStatus } from './consts';
 
 type PrivateRouteProps = {
     children: JSX.Element;
-    isRedirectRequired: boolean;
     navigatePath: string;
 }
 
-function PrivateRoute({isRedirectRequired, navigatePath, children}: PrivateRouteProps): JSX.Element{
+function PrivateRoute({navigatePath, children}: PrivateRouteProps): JSX.Element{
+  const authStatus = useAppSelector((store)=> store.authorizationStatus);
   return(
-    (isRedirectRequired) ? <Navigate to={navigatePath} /> : children
+    authStatus !== AuthorizationStatus.Auth ?
+      <Navigate to={navigatePath} /> :
+      children
   );
 }
 
