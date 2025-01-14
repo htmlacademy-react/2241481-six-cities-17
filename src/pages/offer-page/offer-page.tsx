@@ -8,10 +8,11 @@ import CITIES_MAP from '../../data/cities';
 import { AppRoute } from '../../components/consts';
 import { fetchOffer } from '../../store/action-api';
 import { useEffect } from 'react';
+import { selectOffer, selectOffers } from '../../types/store/selectors';
 
 export default function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const offersMock: OfferType[] = useAppSelector((store) => store.offers);
+  const offersMock: OfferType[] = useAppSelector(selectOffers);
   const nearByOffersMock: OfferType[] = offersMock
     .filter(
       (offer)=>(offer.city.name === CITIES_MAP['Amsterdam'].name)
@@ -28,7 +29,7 @@ export default function OfferPage(): JSX.Element {
 
   }, [offerId, dispatch]);
 
-  const offer = useAppSelector((store) => store.offer);
+  const offer = useAppSelector(selectOffer);
 
   return (
     <div className="page">

@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import { SortItem } from '../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setSotringType } from '../../store/action';
+import { selectSortingType } from '../../types/store/selectors';
 
 function PlacesSorting(): JSX.Element{
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
   const sortRef = useRef<HTMLElement>(null);
   const dispatch = useAppDispatch();
-  const currentSort = useAppSelector((store) => store.sortingType);
+  const currentSort = useAppSelector(selectSortingType);
 
   useEffect(()=>{
     const hideSortList = (evt: MouseEvent) => {
