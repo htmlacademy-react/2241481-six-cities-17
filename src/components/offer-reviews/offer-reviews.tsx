@@ -1,4 +1,4 @@
-import AddCommentForm from '../../pages/offer/addCommentForm';
+import AddCommentForm from '../../pages/offer-page/addCommentForm';
 import reviewType from '../../types/reivew-type';
 import ReviewItem from './offer-review-item';
 

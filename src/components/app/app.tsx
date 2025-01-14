@@ -1,11 +1,11 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import OfferType from '../../types/offer-type';
 import { AppRoute } from '../consts';
-import MainPage from '../../pages/main/mainPage';
-import FavoritesPage from '../../pages/favorites/favoritesPage';
-import LoginPage from '../../pages/login/loginPage';
-import OfferPage from '../../pages/offer/offerPage';
-import PageNotFoundPage from '../../pages/not-found/not-found';
+import MainPage from '../../pages/main-page/main-page';
+import FavoritesPage from '../../pages/favorites-page/favorites-page';
+import LoginPage from '../../pages/login-page/login-page';
+import OfferPage from '../../pages/offer-page/offer-page';
+import PageNotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../privateRoute';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks';

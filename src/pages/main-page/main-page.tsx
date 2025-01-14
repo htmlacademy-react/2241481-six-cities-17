@@ -3,7 +3,7 @@ import Header from '../../components/common/header';
 import CityTabs from '../../components/city-tabs/city-tabs';
 import { useAppSelector } from '../../hooks';
 import MainPageContent from './main-page-content';
-import OffersEmpty from '../offer/offers-empty';
+import OffersEmpty from '../offer-page/offers-empty';
 import Spinner from '../../components/spinner/spinner';
 import OfferType from '../../types/offer-type';
 

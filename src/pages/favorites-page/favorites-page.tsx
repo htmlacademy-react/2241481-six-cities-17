@@ -1,6 +1,6 @@
 import Header from '../../components/common/header';
 import OfferType from '../../types/offer-type';
-import FavoriteGroup from './favoritesGroup';
+import FavoriteGroup from './favorites-group';
 import { Link } from 'react-router-dom';
 
 type Props={
