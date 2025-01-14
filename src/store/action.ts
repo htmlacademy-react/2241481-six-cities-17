@@ -8,12 +8,14 @@ const setOffers = createAction<OfferType[]>('offers/setOffers');
 const setSotringType = createAction<SortItem>('offers/setSortingType');
 const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 const setCurrentUser = createAction<userDataType | null>('user/setCurrentUser');
+const setOffer = createAction<OfferType | null>('offer/setOffer');
 
 export {
   changeCity,
   setOffers,
   setSotringType,
   requireAuthorization,
-  setCurrentUser
+  setCurrentUser,
+  setOffer
 };
 

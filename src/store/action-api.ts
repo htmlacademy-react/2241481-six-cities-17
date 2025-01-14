@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import OfferType from '../types/offer-type';
 import { AppDispatch, AppState } from '../types/store';
 import { AxiosInstance } from 'axios';
-import { requireAuthorization, setCurrentUser, setOffers } from './action';
+import { requireAuthorization, setCurrentUser, setOffer, setOffers } from './action';
 import { ApiRoute, AuthorizationStatus } from '../components/consts';
 import userDataType from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
@@ -67,9 +67,26 @@ const logout = createAsyncThunk<void, undefined, {
 );
 
 
+const fetchOffer = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: AppState;
+  extra: AxiosInstance;
+}>(
+  'offer/fetchOffer',
+  async (offerId, {dispatch, extra: api}) => {
+    try{
+      const {data} = await api.get<OfferType>(ApiRoute.Offer.replace(':id', offerId));
+      dispatch(setOffer(data));
+    }catch {
+      console.log(`offer with id ${offerId} not found`);
+    }
+  }
+);
+
 export {
   fetchOffers,
   checkAuth,
   login,
-  logout
+  logout,
+  fetchOffer
 };

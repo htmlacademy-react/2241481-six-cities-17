@@ -16,7 +16,7 @@ function MainPage(): JSX.Element{
 
   const offers: OfferType[] = useAppSelector((state) => state.offers);
   const currentCity = useAppSelector((state) => state.currentCity);
-  const isDataLoading = useAppSelector((state) => state.isDataLoading);
+  const isDataLoading = useAppSelector((state) => state.isOffersDataLoading);
 
   const mainClassName = `page__main page__main--index ${offers.length === 0 ? 'page__main--index-empty' : ''}`;
 

@@ -8,6 +8,7 @@ import { AppRoute } from './consts';
 }
 
 function OfferCard({offer, onActiveOfferCardChanged}: Props): JSX.Element {
+  const offerRout = AppRoute.Offer.replace(':id', offer.id);
   return (
     <article className="cities__card place-card"
       onMouseEnter={() => onActiveOfferCardChanged && onActiveOfferCardChanged(offer.id)}
@@ -19,7 +20,7 @@ function OfferCard({offer, onActiveOfferCardChanged}: Props): JSX.Element {
         </div> :
         null }
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={AppRoute.Offer}>
+        <Link to={offerRout}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
@@ -43,7 +44,9 @@ function OfferCard({offer, onActiveOfferCardChanged}: Props): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.LogIn}>{offer.title}</Link>
+          <Link to={offerRout}>
+            {offer.title}
+          </Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>

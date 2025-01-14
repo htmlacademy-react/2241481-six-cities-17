@@ -1,26 +1,42 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import OfferReviwesList from '../../components/offer-reviews/offer-reviews';
 import mockReviews from '../../mocks/reviews';
 import Map from '../../components/map/map';
-import { DEFAULT_CITY } from '../../mocks/default-city';
 import OfferType from '../../types/offer-type';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import CITIES_MAP from '../../data/cities';
+import { AppRoute } from '../../components/consts';
+import { fetchOffer } from '../../store/action-api';
+import { useEffect } from 'react';
 
 export default function OfferPage(): JSX.Element {
-  const offers: OfferType[] = useAppSelector((store) => store.offers);
-  const nearByOffers: OfferType[] = offers
+  const dispatch = useAppDispatch();
+  const offersMock: OfferType[] = useAppSelector((store) => store.offers);
+  const nearByOffersMock: OfferType[] = offersMock
     .filter(
-      (offer)=>(offer.city.name === DEFAULT_CITY.name)
+      (offer)=>(offer.city.name === CITIES_MAP['Amsterdam'].name)
     ).slice(0, 4);
 
-  const activeOfferId: string = nearByOffers[0].id;
+  const activeOfferIdMock: string = nearByOffersMock[0].id;
+  const {id} = useParams<{id: string}>();
+  const offerId = id ?? '';
+
+  useEffect(() => {
+    if (offerId){
+      dispatch(fetchOffer(offerId));
+    }
+
+  }, [offerId, dispatch]);
+
+  const offer = useAppSelector((store) => store.offer);
+
   return (
     <div className="page">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link className="header__logo-link" to="main.html">
+              <Link className="header__logo-link" to={AppRoute.Root}>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </Link>
             </div>
@@ -75,7 +91,7 @@ export default function OfferPage(): JSX.Element {
               </div>
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
-                  Beautiful &amp; luxurious studio at great location
+                  {offer?.title}
                 </h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
@@ -166,7 +182,7 @@ export default function OfferPage(): JSX.Element {
               <OfferReviwesList reviews={mockReviews} />
             </div>
           </div>
-          <Map city={DEFAULT_CITY} offers={nearByOffers} activeOfferId={activeOfferId} className='offer__map map' />
+          <Map city={CITIES_MAP['Amsterdam']} offers={nearByOffersMock} activeOfferId={activeOfferIdMock} className='offer__map map' />
         </section>
         <div className="container">
           <section className="near-places places">

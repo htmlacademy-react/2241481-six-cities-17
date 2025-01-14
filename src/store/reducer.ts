@@ -1,18 +1,24 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, requireAuthorization, setCurrentUser, setOffers, setSotringType } from './action';
+import { changeCity, requireAuthorization, setCurrentUser, setOffer, setOffers, setSotringType } from './action';
 import OfferType from '../types/offer-type';
 import CITIES_MAP from '../data/cities';
 import { AuthorizationStatus, SortItem } from '../components/consts';
-import { fetchOffers } from './action-api';
+import { fetchOffer, fetchOffers } from './action-api';
 import stateType from '../types/state-type';
 
 const initialState: stateType = {
   currentCity: CITIES_MAP['Paris'].name,
   offers: [] as OfferType[],
   sortingType: SortItem.Popular,
-  isDataLoading: false,
+  isOffersDataLoading: false,
+  isOfferDataLoading: false,
+  isNearByDataLoading: false,
+  isReviewsDataLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
-  currentUser: null
+  currentUser: null,
+  offer: null,
+  nearBys: null,
+  reviews: null
 };
 
 const reducer = createReducer(initialState, (builder)=>{
@@ -27,16 +33,31 @@ const reducer = createReducer(initialState, (builder)=>{
       state.sortingType = action.payload;
     })
     .addCase(fetchOffers.pending, (state) => {
-      state.isDataLoading = true;
+      state.isOffersDataLoading = true;
     })
     .addCase(fetchOffers.fulfilled, (state) => {
-      state.isDataLoading = false;
+      state.isOffersDataLoading = false;
+    })
+    .addCase(fetchOffers.rejected, (state) => {
+      state.isOffersDataLoading = false;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })
     .addCase(setCurrentUser, (state, action) => {
       state.currentUser = action.payload;
+    })
+    .addCase(fetchOffer.pending, (state) => {
+      state.isOfferDataLoading = true;
+    })
+    .addCase(fetchOffer.fulfilled, (state) => {
+      state.isOfferDataLoading = false;
+    })
+    .addCase(fetchOffer.rejected, (state) => {
+      state.isOfferDataLoading = false;
+    })
+    .addCase(setOffer, (state, action) => {
+      state.offer = action.payload;
     });
 });
 

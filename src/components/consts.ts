@@ -8,14 +8,15 @@ enum AppRoute{
     Root = '/',
     LogIn = '/login',
     Favorites = '/favorites',
-    Offer = '/offer:id',
+    Offer = '/offer/:id',
     NotFound = '*'
 }
 
 enum ApiRoute{
     Offers = '/offers',
     Login = '/login',
-    Logout = '/logout'
+    Logout = '/logout',
+    Offer = '/offers/:id'
 }
 
 enum SortItem {
