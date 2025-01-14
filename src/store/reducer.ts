@@ -4,7 +4,7 @@ import OfferType from '../types/offer-type';
 import CITIES_MAP from '../data/cities';
 import { AuthorizationStatus, SortItem } from '../components/consts';
 import { fetchOffers } from './action-api';
-import stateType from '../types/state';
+import stateType from '../types/state-type';
 
 const initialState: stateType = {
   currentCity: CITIES_MAP['Paris'].name,

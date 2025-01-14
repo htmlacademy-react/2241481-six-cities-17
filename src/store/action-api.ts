@@ -6,7 +6,7 @@ import { requireAuthorization, setCurrentUser, setOffers } from './action';
 import { ApiRoute, AuthorizationStatus } from '../components/consts';
 import userDataType from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
-import credentialsType from '../types/credentials';
+import credentialsType from '../types/credentials-type';
 
 
 const fetchOffers = createAsyncThunk<void, undefined, {
