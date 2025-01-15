@@ -1,14 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, requireAuthorization, setCurrentUser, setOffer, setOffers, setSotringType } from './action';
-import { OfferType } from '../types/offer-type';
+import { changeCity, requireAuthorization, setComments, setCurrentUser, setIsCommentsError, setIsOffersError, setOffer, setOffers, setSotringType } from './action';
+import { OfferPreviewType } from '../types/offer-type';
 import CITIES_MAP from '../data/cities';
 import { AuthorizationStatus, SortItem } from '../components/consts';
-import { fetchOffer, fetchOffers } from './action-api';
-import stateType from '../types/state-type';
+import { fetchComments, fetchOffer, fetchOffers } from './action-api';
+import StateType from '../types/state-type';
+import CommentType from '../types/comment-type';
 
-const initialState: stateType = {
+const initialState: StateType = {
   currentCity: CITIES_MAP['Paris'].name,
-  offers: [] as OfferType[],
+  offers: [] as OfferPreviewType[],
+  comments: [] as CommentType[],
   sortingType: SortItem.Popular,
   isOffersDataLoading: false,
   isOfferDataLoading: false,
@@ -18,13 +20,18 @@ const initialState: stateType = {
   currentUser: null,
   offer: null,
   nearBys: null,
-  reviews: null
+  reviews: null,
+  isOffersError: false,
+  isCommentsError: false
 };
 
 const reducer = createReducer(initialState, (builder)=>{
   builder
     .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(setComments, (state, action) => {
+      state.comments = action.payload;
     })
     .addCase(changeCity, (state, action) => {
       state.currentCity = action.payload;
@@ -56,10 +63,24 @@ const reducer = createReducer(initialState, (builder)=>{
     .addCase(fetchOffer.rejected, (state) => {
       state.isOfferDataLoading = false;
     })
+    .addCase(fetchComments.pending, (state) => {
+      state.isOfferDataLoading = true;
+    })
+    .addCase(fetchComments.fulfilled, (state) => {
+      state.isOfferDataLoading = false;
+    })
+    .addCase(fetchComments.rejected, (state) => {
+      state.isOfferDataLoading = false;
+    })
     .addCase(setOffer, (state, action) => {
       state.offer = action.payload;
+    })
+    .addCase(setIsOffersError, (state, action) => {
+      state.isOffersError = action.payload;
+    })
+    .addCase(setIsCommentsError, (state, action) => {
+      state.isCommentsError = action.payload;
     });
 });
-
 
 export default reducer;

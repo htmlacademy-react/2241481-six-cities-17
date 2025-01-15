@@ -1,7 +1,7 @@
-type userDataType = {
+type UserDataType = {
   id: number;
   email: string;
   token: string;
 }
 
-export default userDataType;
+export default UserDataType;

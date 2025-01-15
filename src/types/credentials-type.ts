@@ -1,6 +1,6 @@
-type credentialsType = {
+type CredentialsType = {
     login: string;
     password: string;
 }
 
-export default credentialsType;
+export default CredentialsType;

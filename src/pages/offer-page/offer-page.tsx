@@ -1,16 +1,15 @@
 import { Link, useParams } from 'react-router-dom';
-import OfferReviwesList from '../../components/offer-reviews/offer-reviews';
-import mockReviews from '../../mocks/reviews';
 import Map from '../../components/map/map';
 import { OfferPreviewType } from '../../types/offer-type';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import CITIES_MAP from '../../data/cities';
-import { fetchOffer } from '../../store/action-api';
+import { fetchComments, fetchOffer } from '../../store/action-api';
 import { useEffect } from 'react';
-import { selectAuthorizationStatus, selectIsOfferDataLoading, selectOffer, selectOffers } from '../../types/store/selectors';
+import { selectAuthorizationStatus, selectComments, selectIsOfferDataLoading, selectOffer, selectOffers } from '../../types/store/selectors';
 import Header from '../../components/common/header';
 import Spinner from '../../components/spinner/spinner';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
+import OfferReviewsList from '../../components/offer-reviews/offer-reviews';
 
 export default function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -29,12 +28,13 @@ export default function OfferPage(): JSX.Element {
   useEffect(() => {
     if (offerId){
       dispatch(fetchOffer(offerId));
+      dispatch(fetchComments(offerId));
     }
 
   }, [offerId, dispatch]);
 
   const offer = useAppSelector(selectOffer);
-  console.log('offer: ', offer);
+  const comments = useAppSelector(selectComments);
 
   return (
     <div className="page">
@@ -140,7 +140,7 @@ export default function OfferPage(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <OfferReviwesList reviews={mockReviews} />
+              <OfferReviewsList reviews={comments} />
             </div>
           </div>
           <Map city={CITIES_MAP['Amsterdam']} offers={nearByOffersMock} activeOfferId={activeOfferIdMock} className='offer__map map' />

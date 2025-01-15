@@ -1,6 +1,7 @@
 import { AppState } from '.';
 
 const selectOffers = (state: AppState) => state.offers;
+const selectComments = (state: AppState) => state.comments;
 const selectSortingType = (state: AppState) => state.sortingType;
 const selectCurrentCity = (state: AppState) => state.currentCity;
 const selectIsOfferDataLoading = (state: AppState) => state.isOfferDataLoading;
@@ -12,9 +13,12 @@ const selectCurrentUser = (state: AppState) => state.currentUser;
 const selectOffer = (state: AppState) => state.offer;
 const selectNearBys = (state: AppState) => state.nearBys;
 const selectReviews = (state: AppState) => state.reviews;
+const selectIsOffersError = (state: AppState) => state.isOffersError;
+const selectIsCommentsError = (state: AppState) => state.isCommentsError;
 
 export {
   selectOffers,
+  selectComments,
   selectSortingType,
   selectCurrentCity,
   selectIsOfferDataLoading,
@@ -25,5 +29,7 @@ export {
   selectCurrentUser,
   selectOffer,
   selectNearBys,
-  selectReviews
+  selectReviews,
+  selectIsOffersError,
+  selectIsCommentsError
 };

@@ -1,8 +1,8 @@
-type cityType = {
+type CityType = {
     name: string;
     lat: number;
     lng: number;
     zoom: number;
 }
 
-export default cityType;
+export default CityType;
