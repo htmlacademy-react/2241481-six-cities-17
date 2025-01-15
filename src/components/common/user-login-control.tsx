@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../consts';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logout } from '../../store/action-api';
 import { selectAuthorizationStatus, selectCurrentUser } from '../../types/store/selectors';
 

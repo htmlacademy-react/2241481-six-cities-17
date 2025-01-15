@@ -1,15 +1,15 @@
 import { useAppSelector } from '../../hooks';
-import OfferType from '../../types/offer-type';
+import { OfferPreviewType } from '../../types/offer-type';
 import { selectSortingType } from '../../types/store/selectors';
 import { sortOffers } from '../../utils/utils';
 import OfferCard from '../offerCard';
 
-type props = {
-  offers: OfferType[];
+type Props = {
+  offers: OfferPreviewType[];
   onActiveOfferCardChanged: (id: string | null) => void;
 }
 
-function OfferCardsList({offers, onActiveOfferCardChanged}: props) : JSX.Element{
+function OfferCardsList({offers, onActiveOfferCardChanged}: Props) : JSX.Element{
   const sortingType = useAppSelector(selectSortingType);
   const sortedOffers = sortOffers(offers, sortingType);
   return(

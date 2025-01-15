@@ -3,11 +3,11 @@ import { useEffect, useRef } from 'react';
 import useMap from '../../hooks/useMap';
 import cityType from '../../types/city-type';
 import { PIN_MARKER_URL, PIN_MARKER_ACTIVE_URL } from '../../data/leaflet-data';
-import OfferType from '../../types/offer-type';
+import { OfferPreviewType } from '../../types/offer-type';
 
 type MapProps = {
   city: cityType;
-  offers: OfferType[];
+  offers: OfferPreviewType[];
   activeOfferId: string | null;
   className: string;
 }

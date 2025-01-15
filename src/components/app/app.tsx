@@ -1,5 +1,5 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import OfferType from '../../types/offer-type';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { OfferType } from '../../types/offer-type';
 import { AppRoute } from '../consts';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';

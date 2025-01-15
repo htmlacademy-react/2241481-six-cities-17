@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import OfferType from '../types/offer-type';
+import { OfferType } from '../types/offer-type';
 import { AuthorizationStatus, SortItem } from '../components/consts';
 import userDataType from '../types/user-data';
 

@@ -1,6 +1,6 @@
-import OfferType from '../types/offer-type';
+import { OfferPreviewType } from '../types/offer-type';
 
-const mockFavorites: OfferType[] = [
+const mockFavorites: OfferPreviewType[] = [
   {
     'id': '88635663-6a06-4d54-b132-817bfee95c45',
     'title': 'House in countryside',

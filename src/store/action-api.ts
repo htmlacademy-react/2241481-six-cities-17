@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import OfferType from '../types/offer-type';
+import { OfferType } from '../types/offer-type';
 import { AppDispatch, AppState } from '../types/store';
 import { AxiosInstance } from 'axios';
 import { requireAuthorization, setCurrentUser, setOffer, setOffers } from './action';

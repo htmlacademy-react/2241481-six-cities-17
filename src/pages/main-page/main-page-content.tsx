@@ -2,11 +2,11 @@ import Map from '../../components/map/map';
 import OfferCardsList from '../../components/offers-list/offers-list';
 import PlacesSorting from '../../components/sorting/sorting';
 import CITIES_MAP from '../../data/cities';
-import OfferType from '../../types/offer-type';
+import { OfferPreviewType } from '../../types/offer-type';
 import { filterOffers } from '../../utils/utils';
 
 type Props = {
-    offers: OfferType[];
+    offers: OfferPreviewType[];
     currentCity: string;
     activeOfferId: string | null;
     handleActiveOfferChange: (id: string | null) => void;

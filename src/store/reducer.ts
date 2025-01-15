@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { changeCity, requireAuthorization, setCurrentUser, setOffer, setOffers, setSotringType } from './action';
-import OfferType from '../types/offer-type';
+import { OfferType } from '../types/offer-type';
 import CITIES_MAP from '../data/cities';
 import { AuthorizationStatus, SortItem } from '../components/consts';
 import { fetchOffer, fetchOffers } from './action-api';

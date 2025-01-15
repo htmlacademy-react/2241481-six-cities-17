@@ -5,7 +5,7 @@ import { useAppSelector } from '../../hooks';
 import MainPageContent from './main-page-content';
 import OffersEmpty from '../offer-page/offers-empty';
 import Spinner from '../../components/spinner/spinner';
-import OfferType from '../../types/offer-type';
+import { OfferPreviewType } from '../../types/offer-type';
 import { selectCurrentCity, selectIsOffersDataLoading, selectOffers } from '../../types/store/selectors';
 
 
@@ -15,7 +15,7 @@ function MainPage(): JSX.Element{
     setActiveOffer(id);
   };
 
-  const offers: OfferType[] = useAppSelector(selectOffers);
+  const offers: OfferPreviewType[] = useAppSelector(selectOffers);
   const currentCity = useAppSelector(selectCurrentCity);
   const isOffersDataLoading = useAppSelector(selectIsOffersDataLoading);
 

@@ -1,10 +1,10 @@
 import OfferCard from '../../components/offerCard';
-import OfferType from '../../types/offer-type';
+import { OfferPreviewType } from '../../types/offer-type';
 import { Link } from 'react-router-dom';
 
 type Props = {
     cityName: string;
-    offers: OfferType[];
+    offers: OfferPreviewType[];
 }
 
 function FavoriteGroup({cityName, offers}:Props): JSX.Element{

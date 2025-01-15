@@ -1,11 +1,11 @@
 import { AuthorizationStatus, SortItem } from '../components/consts';
-import OfferType from './offer-type';
+import { OfferPreviewType, OfferType } from './offer-type';
 import reviewType from './reivew-type';
 import userDataType from './user-data';
 
 type stateType = {
   currentCity: string;
-  offers: OfferType[];
+  offers: OfferPreviewType[];
   sortingType: SortItem;
   isOffersDataLoading: boolean;
   isOfferDataLoading: boolean;

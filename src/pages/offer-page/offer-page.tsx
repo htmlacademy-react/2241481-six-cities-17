@@ -2,18 +2,22 @@ import { Link, useParams } from 'react-router-dom';
 import OfferReviwesList from '../../components/offer-reviews/offer-reviews';
 import mockReviews from '../../mocks/reviews';
 import Map from '../../components/map/map';
-import OfferType from '../../types/offer-type';
+import { OfferPreviewType } from '../../types/offer-type';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import CITIES_MAP from '../../data/cities';
-import { AppRoute } from '../../components/consts';
 import { fetchOffer } from '../../store/action-api';
 import { useEffect } from 'react';
-import { selectOffer, selectOffers } from '../../types/store/selectors';
+import { selectAuthorizationStatus, selectIsOfferDataLoading, selectOffer, selectOffers } from '../../types/store/selectors';
+import Header from '../../components/common/header';
+import Spinner from '../../components/spinner/spinner';
+import OfferGallery from '../../components/offer-gallery/offer-gallery';
 
 export default function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const offersMock: OfferType[] = useAppSelector(selectOffers);
-  const nearByOffersMock: OfferType[] = offersMock
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isOfferDataLoading = useAppSelector(selectIsOfferDataLoading);
+  const offersMock: OfferPreviewType[] = useAppSelector(selectOffers);
+  const nearByOffersMock: OfferPreviewType[] = offersMock
     .filter(
       (offer)=>(offer.city.name === CITIES_MAP['Amsterdam'].name)
     ).slice(0, 4);
@@ -30,66 +34,22 @@ export default function OfferPage(): JSX.Element {
   }, [offerId, dispatch]);
 
   const offer = useAppSelector(selectOffer);
+  console.log('offer: ', offer);
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link className="header__logo-link" to={AppRoute.Root}>
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </Link>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
-                  </Link>
-                </li>
-                <li className="header__nav-item">
-                  <Link className="header__nav-link" to="#">
-                    <span className="header__signout">Sign out</span>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header showUserLogin />
+      {isOfferDataLoading && <Spinner />}
       <main className="page__main page__main--offer">
         <section className="offer">
-          <div className="offer__gallery-container container">
-            <div className="offer__gallery">
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/room.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-02.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-03.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/studio-01.jpg" alt="Photo studio" />
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio" />
-              </div>
-            </div>
-          </div>
+          <OfferGallery />
           <div className="offer__container container">
             <div className="offer__wrapper">
-              <div className="offer__mark">
-                <span>Premium</span>
-              </div>
+              {offer?.isPremium ?
+                <div className="offer__mark">
+                  <span>Premium</span>
+                </div> :
+                null }
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
                   {offer?.title}
@@ -106,17 +66,17 @@ export default function OfferPage(): JSX.Element {
                   <span style={{width: '80%'}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">4.8</span>
+                <span className="offer__rating-value rating__value">{offer?.rating}</span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  Apartment
+                  {offer?.type}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  3 Bedrooms
+                  {`${offer?.bedrooms} Bedrooms`}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max 4 adults
+                  {`Max ${offer?.maxAdults} adults`}
                 </li>
               </ul>
               <div className="offer__price">
