@@ -28,10 +28,16 @@ enum SortItem {
     Rating = 'Top rate first'
 }
 
+const REVIEW_THRESHOLD = {
+  MIN: 50,
+  MAX: 300
+};
+
 export {
   AuthorizationStatus,
   AppRoute,
   ApiRoute,
-  SortItem
+  SortItem,
+  REVIEW_THRESHOLD
 };
 

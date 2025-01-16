@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { OfferType } from '../../types/offer-type';
+import { OfferPreviewType } from '../../types/offer-type';
 import { AppRoute } from '../consts';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -13,7 +13,7 @@ import { checkAuth, fetchOffers } from '../../store/action-api';
 
 
 type AppProps = {
-  favorites: OfferType[];
+  favorites: OfferPreviewType[];
 }
 
 function App({favorites}: AppProps): JSX.Element{

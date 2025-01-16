@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import CITIES_MAP from '../../data/cities';
 import { fetchComments, fetchNearByOffers, fetchOffer } from '../../store/action-api';
 import { useEffect } from 'react';
-import { selectComments, selectCurrentCity, selectIsOfferDataLoading, selectNearBys, selectOffer, selectOffers } from '../../types/store/selectors';
+import { selectComments, selectCurrentCity, selectIsOfferDataLoading, selectNearBys, selectOffer } from '../../types/store/selectors';
 import Header from '../../components/common/header';
 import Spinner from '../../components/spinner/spinner';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
@@ -14,6 +14,7 @@ import HostUser from '../../components/host-user/host-user';
 import OfferGoods from '../../components/offer-goods/offer-goods';
 import NearByPlaces from '../../components/offer-near-by-places/offer-near-by-places';
 import { convertToOfferPreview } from '../../utils/utils';
+import PageNotFoundPage from '../not-found-page/not-found-page';
 
 export default function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -39,10 +40,11 @@ export default function OfferPage(): JSX.Element {
   const nearBysCropped = nearBysFull?.slice(0, 3) ?? [];
   const nearBysCorppedWithActive = [...nearBysCropped];
 
-  if (offer){
+  if (!offer){
+    return <PageNotFoundPage/>;
+  }else{
     nearBysCorppedWithActive.push(convertToOfferPreview(offer));
   }
-
   return (
     <div className="page">
       <Header showUserLogin />

@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react';
+import { REVIEW_THRESHOLD } from '../../components/consts';
 
 type FormDataType = {
     review: string;
@@ -24,7 +25,7 @@ function AddCommentForm(): JSX.Element {
       [inputName]: e.target.value
     }));
 
-    if (formData.review.length > 5){
+    if (formData.review.length > REVIEW_THRESHOLD.MIN && formData.review.length < REVIEW_THRESHOLD.MAX){
       setIsSubmitButtonDisabled(false);
     }else {
       setIsSubmitButtonDisabled(true);
