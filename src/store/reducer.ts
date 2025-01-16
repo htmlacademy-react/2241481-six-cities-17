@@ -1,9 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, requireAuthorization, setComments, setCurrentUser, setIsCommentsError, setIsOffersError, setOffer, setOffers, setSotringType } from './action';
+import { changeCity, requireAuthorization, setComments, setCurrentUser, setIsCommentsError, setIsOffersError, setNearByOffers, setOffer, setOffers, setSotringType } from './action';
 import { OfferPreviewType } from '../types/offer-type';
 import CITIES_MAP from '../data/cities';
 import { AuthorizationStatus, SortItem } from '../components/consts';
-import { fetchComments, fetchOffer, fetchOffers } from './action-api';
+import { fetchComments, fetchNearByOffers, fetchOffer, fetchOffers } from './action-api';
 import StateType from '../types/state-type';
 import CommentType from '../types/comment-type';
 
@@ -33,6 +33,9 @@ const reducer = createReducer(initialState, (builder)=>{
     .addCase(setComments, (state, action) => {
       state.comments = action.payload;
     })
+    .addCase(setNearByOffers, (state, action) => {
+      state.nearBys = action.payload;
+    })
     .addCase(changeCity, (state, action) => {
       state.currentCity = action.payload;
     })
@@ -46,6 +49,15 @@ const reducer = createReducer(initialState, (builder)=>{
       state.isOffersDataLoading = false;
     })
     .addCase(fetchOffers.rejected, (state) => {
+      state.isOffersDataLoading = false;
+    })
+    .addCase(fetchNearByOffers.pending, (state) => {
+      state.isOffersDataLoading = true;
+    })
+    .addCase(fetchNearByOffers.fulfilled, (state) => {
+      state.isOffersDataLoading = false;
+    })
+    .addCase(fetchNearByOffers.rejected, (state) => {
       state.isOffersDataLoading = false;
     })
     .addCase(requireAuthorization, (state, action) => {

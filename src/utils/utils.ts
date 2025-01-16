@@ -1,5 +1,5 @@
 import { SortItem } from '../components/consts';
-import { OfferPreviewType } from '../types/offer-type';
+import { OfferPreviewType, OfferType } from '../types/offer-type';
 
 const sortOffers = (offers: OfferPreviewType[], sortingType: SortItem): OfferPreviewType[] => {
   switch (sortingType){
@@ -20,4 +20,22 @@ const sortOffers = (offers: OfferPreviewType[], sortingType: SortItem): OfferPre
 const filterOffers = (offers: OfferPreviewType[], cityName: string): OfferPreviewType[] =>
   offers.filter((offer) => (offer.city.name === cityName));
 
-export {sortOffers, filterOffers};
+const convertToOfferPreview = (offer: OfferType): OfferPreviewType => ({
+  id: offer.id,
+  title: offer.title,
+  type: offer.type,
+  price: offer.price,
+  city: offer.city,
+  location: offer.location,
+  isFavorite: offer.isFavorite,
+  isPremium: offer.isPremium,
+  rating: offer.rating,
+  previewImage: offer.images[0] ?? ''
+});
+
+
+export {
+  sortOffers,
+  filterOffers,
+  convertToOfferPreview
+};

@@ -1,13 +1,4 @@
-type LocationType = {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-}
-
-type CityType = {
-    name: string;
-    location: LocationType;
-}
+import CityType, { LocationType } from './city-type';
 
 type HostType = {
     name: string;

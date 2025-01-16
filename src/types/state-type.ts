@@ -16,7 +16,7 @@ type StateType = {
   authorizationStatus: AuthorizationStatus;
   currentUser: UserDataType | null;
   offer: OfferType | null;
-  nearBys: OfferType[] | null;
+  nearBys: OfferPreviewType[] | null;
   reviews: ReviewType[] | null;
   isOffersError: boolean;
   isCommentsError: boolean;

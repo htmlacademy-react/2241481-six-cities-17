@@ -17,7 +17,8 @@ enum ApiRoute{
     Login = '/login',
     Logout = '/logout',
     Offer = '/offers/:id',
-    Comments = '/comments/:id'
+    Comments = '/comments/:id',
+    NearByOffers = '/offers/:id/nearby'
 }
 
 enum SortItem {

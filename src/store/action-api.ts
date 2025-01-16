@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { OfferPreviewType, OfferType } from '../types/offer-type';
 import { AppDispatch, AppState } from '../types/store';
 import { AxiosInstance } from 'axios';
-import { requireAuthorization, setComments, setCurrentUser, setIsCommentsError, setIsOffersError, setOffer, setOffers } from './action';
+import { requireAuthorization, setComments, setCurrentUser, setIsCommentsError, setIsOffersError, setNearByOffers, setOffer, setOffers } from './action';
 import { ApiRoute, AuthorizationStatus } from '../components/consts';
 import UserDataType from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
@@ -100,11 +100,24 @@ const fetchComments = createAsyncThunk<void, string, {
   }
 );
 
+const fetchNearByOffers = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: AppState;
+  extra: AxiosInstance;
+}>(
+  'offers/fetchNearByOffers',
+  async (offerId, {dispatch, extra: api}) => {
+    const {data} = await api.get<OfferPreviewType[]>(ApiRoute.NearByOffers.replace(':id', offerId));
+    dispatch(setNearByOffers(data));
+  }
+);
+
 export {
   fetchOffers,
   checkAuth,
   login,
   logout,
   fetchOffer,
-  fetchComments
+  fetchComments,
+  fetchNearByOffers
 };
