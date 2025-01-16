@@ -7,8 +7,7 @@ import { ApiRoute, AuthorizationStatus } from '../components/consts';
 import UserDataType from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
 import CredentialsType from '../types/credentials-type';
-import CommentType from '../types/comment-type';
-
+import CommentType, { PostCommentType } from '../types/comment-type';
 
 const fetchOffers = createAsyncThunk<void, undefined, {
     dispatch: AppDispatch;
@@ -78,7 +77,7 @@ const fetchOffer = createAsyncThunk<void, string, {
     try{
       const {data} = await api.get<OfferType>(ApiRoute.Offer.replace(':id', offerId));
       dispatch(setOffer(data));
-    }catch {
+    }catch (error){
       dispatch(setIsOffersError(true));
     }
   }
@@ -105,10 +104,22 @@ const fetchNearByOffers = createAsyncThunk<void, string, {
   state: AppState;
   extra: AxiosInstance;
 }>(
-  'offers/fetchNearByOffers',
+  'offer/fetchNearByOffers',
   async (offerId, {dispatch, extra: api}) => {
     const {data} = await api.get<OfferPreviewType[]>(ApiRoute.NearByOffers.replace(':id', offerId));
     dispatch(setNearByOffers(data));
+  }
+);
+
+const postComment = createAsyncThunk<PostCommentType, {offerId: string; payload: PostCommentType}, {
+  dispatch: AppDispatch;
+  state: AppState;
+  extra: AxiosInstance;
+}>(
+  'offer/postComment',
+  async ({offerId, payload}, {extra: api}) => {
+    const response = await api.post<PostCommentType>(ApiRoute.Comments.replace(':id', offerId), payload);
+    return response?.data;
   }
 );
 
@@ -119,5 +130,6 @@ export {
   logout,
   fetchOffer,
   fetchComments,
-  fetchNearByOffers
+  fetchNearByOffers,
+  postComment
 };
