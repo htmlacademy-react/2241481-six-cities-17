@@ -42,5 +42,6 @@ type OfferType = OfferBaseType & {
 
 export type {
   OfferType,
-  OfferPreviewType
+  OfferPreviewType,
+  HostType
 };

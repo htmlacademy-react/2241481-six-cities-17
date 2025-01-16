@@ -21,7 +21,7 @@ function OfferReviewsList({reviews}: Props): JSX.Element{
       <ul className="reviews__list">
         {reviews.map(
           (reviewItem) => <ReviewItem review={reviewItem} key={reviewItem.id}/>
-        )};
+        )}
       </ul>
       {isAuthorized && <AddCommentForm />}
     </section>

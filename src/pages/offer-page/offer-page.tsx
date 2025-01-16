@@ -1,19 +1,20 @@
 import { Link, useParams } from 'react-router-dom';
 import Map from '../../components/map/map';
-import { OfferPreviewType } from '../../types/offer-type';
+import { HostType, OfferPreviewType } from '../../types/offer-type';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import CITIES_MAP from '../../data/cities';
 import { fetchComments, fetchOffer } from '../../store/action-api';
 import { useEffect } from 'react';
-import { selectAuthorizationStatus, selectComments, selectIsOfferDataLoading, selectOffer, selectOffers } from '../../types/store/selectors';
+import { selectComments, selectIsOfferDataLoading, selectOffer, selectOffers } from '../../types/store/selectors';
 import Header from '../../components/common/header';
 import Spinner from '../../components/spinner/spinner';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import OfferReviewsList from '../../components/offer-reviews/offer-reviews';
+import HostUser from '../../components/host-user/host-user';
+import OfferGoods from '../../components/offer-goods/offer-goods';
 
 export default function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isOfferDataLoading = useAppSelector(selectIsOfferDataLoading);
   const offersMock: OfferPreviewType[] = useAppSelector(selectOffers);
   const nearByOffersMock: OfferPreviewType[] = offersMock
@@ -35,6 +36,9 @@ export default function OfferPage(): JSX.Element {
 
   const offer = useAppSelector(selectOffer);
   const comments = useAppSelector(selectComments);
+
+  console.log('offer: ', offer);
+  const emptyHost: HostType = {name: 'unknown host', avatarUrl: '', isPro: false};
 
   return (
     <div className="page">
@@ -83,60 +87,13 @@ export default function OfferPage(): JSX.Element {
                 <b className="offer__price-value">&euro;120</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
-              <div className="offer__inside">
-                <h2 className="offer__inside-title">What&apos;s inside</h2>
-                <ul className="offer__inside-list">
-                  <li className="offer__inside-item">
-                    Wi-Fi
-                  </li>
-                  <li className="offer__inside-item">
-                    Washing machine
-                  </li>
-                  <li className="offer__inside-item">
-                    Towels
-                  </li>
-                  <li className="offer__inside-item">
-                    Heating
-                  </li>
-                  <li className="offer__inside-item">
-                    Coffee machine
-                  </li>
-                  <li className="offer__inside-item">
-                    Baby seat
-                  </li>
-                  <li className="offer__inside-item">
-                    Kitchen
-                  </li>
-                  <li className="offer__inside-item">
-                    Dishwasher
-                  </li>
-                  <li className="offer__inside-item">
-                    Cabel TV
-                  </li>
-                  <li className="offer__inside-item">
-                    Fridge
-                  </li>
-                </ul>
-              </div>
+              <OfferGoods goods={offer?.goods ?? []}/>
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
-                <div className="offer__host-user user">
-                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="offer__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
-                  </div>
-                  <span className="offer__user-name">
-                    Angelina
-                  </span>
-                  <span className="offer__user-status">
-                    Pro
-                  </span>
-                </div>
+                <HostUser host={offer?.host ?? emptyHost} />
                 <div className="offer__description">
                   <p className="offer__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <p className="offer__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
+                    {offer?.description}
                   </p>
                 </div>
               </div>
