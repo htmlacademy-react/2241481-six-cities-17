@@ -13,7 +13,7 @@ import OfferReviewsList from '../../components/offer-reviews/offer-reviews';
 import HostUser from '../../components/host-user/host-user';
 import OfferGoods from '../../components/offer-goods/offer-goods';
 import NearByPlaces from '../../components/offer-near-by-places/offer-near-by-places';
-import { convertToOfferPreview } from '../../utils/utils';
+import { convertToOfferPreview, prepareReviews } from '../../utils/utils';
 import PageNotFoundPage from '../not-found-page/not-found-page';
 
 export default function OfferPage(): JSX.Element {
@@ -35,10 +35,13 @@ export default function OfferPage(): JSX.Element {
   const emptyHost: HostType = {name: 'unknown host', avatarUrl: '', isPro: false};
   const currentCity = useAppSelector(selectCurrentCity);
   const offer = useAppSelector(selectOffer);
-  const comments = useAppSelector(selectComments);
+  const commentsAll = useAppSelector(selectComments);
   const nearBysFull = useAppSelector(selectNearBys);
+
   const nearBysCropped = nearBysFull?.slice(0, 3) ?? [];
   const nearBysCorppedWithActive = [...nearBysCropped];
+  const comments = prepareReviews(commentsAll);
+
 
   if (!offer){
     return <PageNotFoundPage/>;

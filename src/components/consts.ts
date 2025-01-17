@@ -21,6 +21,7 @@ enum ApiRoute{
     NearByOffers = '/offers/:id/nearby',
 }
 
+
 enum SortItem {
     Popular = 'Popular',
     PriceLow = 'Price: low to high',
@@ -38,6 +39,15 @@ const RATING_THRESHOLD = {
   MAX: 5
 };
 
+const MAX_REVIEWS_COUNT = 10;
+
+const RATIMG_MAP: { [key: number]: string } = {
+  1 : 'terribly',
+  2 : 'badly',
+  3 : 'not bad',
+  4 : 'good',
+  5 : 'perfect'
+};
 
 export {
   AuthorizationStatus,
@@ -45,6 +55,8 @@ export {
   ApiRoute,
   SortItem,
   REVIEW_THRESHOLD,
-  RATING_THRESHOLD
+  RATING_THRESHOLD,
+  RATIMG_MAP,
+  MAX_REVIEWS_COUNT
 };
 

@@ -1,5 +1,7 @@
-import { SortItem } from '../components/consts';
+import { MAX_REVIEWS_COUNT, SortItem } from '../components/consts';
+import OfferReviewsList from '../components/offer-reviews/offer-reviews';
 import { OfferPreviewType, OfferType } from '../types/offer-type';
+import ReviewType from '../types/reivew-type';
 
 const sortOffers = (offers: OfferPreviewType[], sortingType: SortItem): OfferPreviewType[] => {
   switch (sortingType){
@@ -33,14 +35,14 @@ const convertToOfferPreview = (offer: OfferType): OfferPreviewType => ({
   previewImage: offer.images[0] ?? ''
 });
 
-const convertToRating = (strValue: string | null): number =>{
-  const result = Number(strValue);
-  return isNaN(result) ? 0 : result;
+const prepareReviews = (reviews: ReviewType[]): ReviewType[] => {
+  const result = reviews.slice(0, MAX_REVIEWS_COUNT);
+  return result.toSorted((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 };
 
 export {
   sortOffers,
   filterOffers,
   convertToOfferPreview,
-  convertToRating
+  prepareReviews
 };
