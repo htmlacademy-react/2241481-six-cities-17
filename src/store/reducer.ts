@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, requireAuthorization, setComments, setCurrentUser, setIsCommentPostingError, setIsCommentsError, setIsCommentsFetchingError, setIsOffersError, setNearByOffers, setOffer, setOffers, setSotringType } from './action';
+import { changeCity, requireAuthorization, setComments, setCurrentUser, setIsCommentPostingError, setIsCommentsFetchingError, setIsOffersError, setNearByOffers, setOffer, setOffers, setSotringType } from './action';
 import { OfferPreviewType } from '../types/offer-type';
 import CITIES_MAP from '../data/cities';
 import { AuthorizationStatus, SortItem } from '../components/consts';

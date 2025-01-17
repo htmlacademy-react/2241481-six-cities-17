@@ -1,5 +1,4 @@
 import { MAX_REVIEWS_COUNT, SortItem } from '../components/consts';
-import OfferReviewsList from '../components/offer-reviews/offer-reviews';
 import { OfferPreviewType, OfferType } from '../types/offer-type';
 import ReviewType from '../types/reivew-type';
 
