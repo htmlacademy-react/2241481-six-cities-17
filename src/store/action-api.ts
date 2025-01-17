@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { OfferPreviewType, OfferType } from '../types/offer-type';
 import { AppDispatch, AppState } from '../types/store';
 import { AxiosInstance } from 'axios';
-import { requireAuthorization, setComments, setCurrentUser, setIsCommentsError, setIsOffersError, setNearByOffers, setOffer, setOffers } from './action';
+import { requireAuthorization, setComments, setCurrentUser, setIsCommentsFetchingError, setIsOffersError, setNearByOffers, setOffer, setOffers } from './action';
 import { ApiRoute, AuthorizationStatus } from '../components/consts';
 import UserDataType from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
@@ -94,7 +94,7 @@ const fetchComments = createAsyncThunk<void, string, {
       const {data} = await api.get<CommentType[]>(ApiRoute.Comments.replace(':id', offerId));
       dispatch(setComments(data));
     }catch {
-      dispatch(setIsCommentsError(true));
+      dispatch(setIsCommentsFetchingError(true));
     }
   }
 );
@@ -111,15 +111,22 @@ const fetchNearByOffers = createAsyncThunk<void, string, {
   }
 );
 
-const postComment = createAsyncThunk<PostCommentType, {offerId: string; payload: PostCommentType}, {
-  dispatch: AppDispatch;
-  state: AppState;
-  extra: AxiosInstance;
-}>(
-  'offer/postComment',
-  async ({offerId, payload}, {extra: api}) => {
-    const response = await api.post<PostCommentType>(ApiRoute.Comments.replace(':id', offerId), payload);
-    return response?.data;
+const postComment = createAsyncThunk<
+  PostCommentType, // Тип данных, которые возвращает thunk
+  { offerId: string; payload: PostCommentType }, // Тип аргументов, передаваемых в thunk
+  {
+    dispatch: AppDispatch; // Тип для функции dispatch
+    state: AppState; // Тип состояния Redux
+    extra: AxiosInstance; // Дополнительный аргумент (AxiosInstance)
+  }
+>(
+  'offer/postComment', // Имя действия (action type)
+  async ({ offerId, payload }, { extra: api }) => {
+    const response = await api.post<PostCommentType>(
+      ApiRoute.Comments.replace(':id', offerId), // URL-адрес запроса
+      payload // Данные для отправки в POST-запросе
+    );
+    return response?.data; // Результат выполнения запроса
   }
 );
 

@@ -14,7 +14,7 @@ const selectOffer = (state: AppState) => state.offer;
 const selectNearBys = (state: AppState) => state.nearBys;
 const selectReviews = (state: AppState) => state.reviews;
 const selectIsOffersError = (state: AppState) => state.isOffersError;
-const selectIsCommentsError = (state: AppState) => state.isCommentsError;
+const selectIsCommentsFetchingError = (state: AppState) => state.isCommentsFetchingError;
 
 export {
   selectOffers,
@@ -31,5 +31,5 @@ export {
   selectNearBys,
   selectReviews,
   selectIsOffersError,
-  selectIsCommentsError
+  selectIsCommentsFetchingError
 };

@@ -13,8 +13,8 @@ const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuth
 const setCurrentUser = createAction<UserDataType | null>('user/setCurrentUser');
 const setOffer = createAction<OfferType | null>('offer/setOffer');
 const setIsOffersError = createAction<boolean>('error/setIsOffersError');
-const setIsCommentsError = createAction<boolean>('error/setIsCommentsError');
-
+const setIsCommentsFetchingError = createAction<boolean>('error/setIsCommentsFetchingError');
+const setIsCommentPostingError = createAction<boolean>('error/setIsCommentPostingError');
 
 export {
   changeCity,
@@ -26,6 +26,7 @@ export {
   setCurrentUser,
   setOffer,
   setIsOffersError,
-  setIsCommentsError
+  setIsCommentsFetchingError,
+  setIsCommentPostingError
 };
 

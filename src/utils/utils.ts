@@ -33,9 +33,14 @@ const convertToOfferPreview = (offer: OfferType): OfferPreviewType => ({
   previewImage: offer.images[0] ?? ''
 });
 
+const convertToRating = (strValue: string | null): number =>{
+  const result = Number(strValue);
+  return isNaN(result) ? 0 : result;
+};
 
 export {
   sortOffers,
   filterOffers,
-  convertToOfferPreview
+  convertToOfferPreview,
+  convertToRating
 };

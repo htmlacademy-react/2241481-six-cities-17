@@ -19,7 +19,8 @@ type StateType = {
   nearBys: OfferPreviewType[] | null;
   reviews: ReviewType[] | null;
   isOffersError: boolean;
-  isCommentsError: boolean;
+  isCommentsFetchingError: boolean;
+  isCommentPostingError: boolean;
 }
 
 export default StateType;

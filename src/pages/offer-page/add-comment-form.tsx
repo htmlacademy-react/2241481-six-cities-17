@@ -1,20 +1,36 @@
 import { ChangeEvent, useState } from 'react';
-import { REVIEW_THRESHOLD } from '../../components/consts';
+import { RATING_THRESHOLD, REVIEW_THRESHOLD } from '../../components/consts';
+import { useAppDispatch } from '../../hooks';
+import { postComment } from '../../store/action-api';
+import { OfferType } from '../../types/offer-type';
+import { PostCommentType } from '../../types/comment-type';
+import { convertToRating } from '../../utils/utils';
+import ErrorBlock from '../../components/error/error';
 
 type FormDataType = {
     review: string;
     rating: string | null;
 }
 
-function AddCommentForm(): JSX.Element {
+type Props = {
+  offer: OfferType | null;
+}
+
+function AddCommentForm({offer}: Props): JSX.Element {
 
   const initialState: FormDataType = {
     review: '',
     rating: null
   };
 
-  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState<FormDataType>(initialState);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const isValidRating = convertToRating(formData.rating) >= RATING_THRESHOLD.MIN && convertToRating(formData.rating) <= RATING_THRESHOLD.MAX;
+  const isValidReview = formData.review.length > REVIEW_THRESHOLD.MIN && formData.review.length < REVIEW_THRESHOLD.MAX;
+  const isDataValid = isValidReview && isValidRating;
 
   const handleFormChange = (
     e: ChangeEvent<HTMLTextAreaElement>|ChangeEvent<HTMLInputElement>,
@@ -24,19 +40,28 @@ function AddCommentForm(): JSX.Element {
       ...prev,
       [inputName]: e.target.value
     }));
-
-    if (formData.review.length > REVIEW_THRESHOLD.MIN && formData.review.length < REVIEW_THRESHOLD.MAX){
-      setIsSubmitButtonDisabled(false);
-    }else {
-      setIsSubmitButtonDisabled(true);
-    }
-
   };
 
   const handleSubmitForm = (e: ChangeEvent<HTMLFormElement>) =>{
     e.preventDefault();
-    setFormData(initialState);
-    setIsSubmitButtonDisabled(true);
+
+    setIsSubmitting(true);
+    const commentPayload: PostCommentType = {
+      comment: formData.review,
+      rating: convertToRating(formData.rating)
+    };
+
+    dispatch(postComment({
+      offerId: offer?.id ?? '',
+      payload: commentPayload
+    }))
+      .then(()=>{
+        setFormData(initialState);
+      }).catch((error: Error) =>{
+        setSubmitError(error.message);
+      }).finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   return(
@@ -121,7 +146,8 @@ function AddCommentForm(): JSX.Element {
         <p className="reviews__help">
         To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={isSubmitButtonDisabled} >Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={!isDataValid || isSubmitting} >Submit</button>
+        {submitError && <ErrorBlock error={submitError} />}
       </div>
     </form>
   );

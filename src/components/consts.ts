@@ -18,7 +18,7 @@ enum ApiRoute{
     Logout = '/logout',
     Offer = '/offers/:id',
     Comments = '/comments/:id',
-    NearByOffers = '/offers/:id/nearby'
+    NearByOffers = '/offers/:id/nearby',
 }
 
 enum SortItem {
@@ -29,15 +29,22 @@ enum SortItem {
 }
 
 const REVIEW_THRESHOLD = {
-  MIN: 50,
+  MIN: 5,
   MAX: 300
 };
+
+const RATING_THRESHOLD = {
+  MIN: 1,
+  MAX: 5
+};
+
 
 export {
   AuthorizationStatus,
   AppRoute,
   ApiRoute,
   SortItem,
-  REVIEW_THRESHOLD
+  REVIEW_THRESHOLD,
+  RATING_THRESHOLD
 };
 

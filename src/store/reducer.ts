@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, requireAuthorization, setComments, setCurrentUser, setIsCommentsError, setIsOffersError, setNearByOffers, setOffer, setOffers, setSotringType } from './action';
+import { changeCity, requireAuthorization, setComments, setCurrentUser, setIsCommentPostingError, setIsCommentsError, setIsCommentsFetchingError, setIsOffersError, setNearByOffers, setOffer, setOffers, setSotringType } from './action';
 import { OfferPreviewType } from '../types/offer-type';
 import CITIES_MAP from '../data/cities';
 import { AuthorizationStatus, SortItem } from '../components/consts';
@@ -22,7 +22,8 @@ const initialState: StateType = {
   nearBys: null,
   reviews: null,
   isOffersError: false,
-  isCommentsError: false
+  isCommentsFetchingError: false,
+  isCommentPostingError: false,
 };
 
 const reducer = createReducer(initialState, (builder)=>{
@@ -90,8 +91,11 @@ const reducer = createReducer(initialState, (builder)=>{
     .addCase(setIsOffersError, (state, action) => {
       state.isOffersError = action.payload;
     })
-    .addCase(setIsCommentsError, (state, action) => {
-      state.isCommentsError = action.payload;
+    .addCase(setIsCommentsFetchingError, (state, action) => {
+      state.isCommentsFetchingError = action.payload;
+    })
+    .addCase(setIsCommentPostingError, (state, action) => {
+      state.isCommentPostingError = action.payload;
     });
 });
 
