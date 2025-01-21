@@ -32,6 +32,10 @@ export default function OfferPage(): JSX.Element {
 
   }, [offerId, dispatch]);
 
+  const addCommentHandler = () => {
+    dispatch(fetchComments(offerId));
+  };
+
   const emptyHost: HostType = {name: 'unknown host', avatarUrl: '', isPro: false};
   const currentCity = useAppSelector(selectCurrentCity);
   const offer = useAppSelector(selectOffer);
@@ -43,10 +47,12 @@ export default function OfferPage(): JSX.Element {
   const comments = prepareReviews(commentsAll);
 
 
-  if (!offer){
+  if (!offer && !isOfferDataLoading){
     return <PageNotFoundPage/>;
   }else{
-    nearBysCorppedWithActive.push(convertToOfferPreview(offer));
+    if (offer !== null){
+      nearBysCorppedWithActive.push(convertToOfferPreview(offer));
+    }
   }
   return (
     <div className="page">
@@ -105,7 +111,7 @@ export default function OfferPage(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <OfferReviewsList reviews={comments} />
+              {comments.length > 0 ? <OfferReviewsList reviews={comments} onAddComment={addCommentHandler}/> : ''}
             </div>
           </div>
           <Map city={CITIES_MAP[currentCity]} offers={nearBysCorppedWithActive} activeOfferId={offer?.id ?? null} className='offer__map map' />

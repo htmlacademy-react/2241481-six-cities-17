@@ -7,9 +7,10 @@ import ReviewItem from './offer-review-item';
 
 type Props = {
     reviews: ReviewType[];
+    onAddComment: ()=> void;
 }
 
-function OfferReviewsList({reviews}: Props): JSX.Element{
+function OfferReviewsList({reviews, onAddComment}: Props): JSX.Element{
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
   const currentOffer = useAppSelector(selectOffer);
@@ -24,7 +25,7 @@ function OfferReviewsList({reviews}: Props): JSX.Element{
           (reviewItem) => <ReviewItem review={reviewItem} key={reviewItem.id}/>
         )}
       </ul>
-      {isAuthorized && <AddCommentForm offer={currentOffer}/>}
+      {isAuthorized && <AddCommentForm offer={currentOffer} onAddComment={onAddComment}/>}
     </section>
   );
 }

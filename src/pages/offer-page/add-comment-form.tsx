@@ -15,9 +15,10 @@ type ReviewFormDataType = {
 
 type Props = {
   offer: OfferType | null;
+  onAddComment: () => void;
 }
 
-function AddCommentForm({offer}: Props): JSX.Element {
+function AddCommentForm({offer, onAddComment}: Props): JSX.Element {
 
   const initialState: ReviewFormDataType = {
     review: '',
@@ -63,6 +64,7 @@ function AddCommentForm({offer}: Props): JSX.Element {
       setIsSubmitting(true);
       if (response.meta.requestStatus === 'fulfilled'){
         setFormData(initialState);
+        onAddComment();
       }
     }).catch((error: Error) =>{
       setSubmitError(error.message);

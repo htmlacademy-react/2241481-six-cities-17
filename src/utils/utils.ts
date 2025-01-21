@@ -34,9 +34,10 @@ const convertToOfferPreview = (offer: OfferType): OfferPreviewType => ({
   previewImage: offer.images[0] ?? ''
 });
 
+
 const prepareReviews = (reviews: ReviewType[]): ReviewType[] => {
-  const result = reviews.slice(0, MAX_REVIEWS_COUNT);
-  return result.toSorted((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const sorted = reviews.toSorted((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return sorted.slice(0, MAX_REVIEWS_COUNT);
 };
 
 export {
