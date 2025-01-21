@@ -1,8 +1,14 @@
-type cityType = {
-    name: string;
-    lat: number;
-    lng: number;
+type LocationType = {
+    latitude: number;
+    longitude: number;
     zoom: number;
 }
 
-export default cityType;
+type CityType = {
+    name: string;
+    location: LocationType;
+}
+
+
+export default CityType;
+export type { LocationType };

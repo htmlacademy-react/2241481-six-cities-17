@@ -1,7 +1,7 @@
-import reviewType from '../../types/reivew-type';
+import ReviewType from '../../types/reivew-type';
 
 type Props = {
-    review: reviewType;
+    review: ReviewType;
 }
 
 function ReviewItem ({review}: Props): JSX.Element{

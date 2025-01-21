@@ -3,11 +3,11 @@ import { useState, useRef, useEffect } from 'react';
 import { MutableRefObject } from 'react';
 import { Map } from 'leaflet';
 import leaflet from 'leaflet';
-import cityType from '../types/city-type';
+import CityType from '../types/city-type';
 
 type mapRefType = MutableRefObject<HTMLElement | null>
 
-function useMap(mapRef: mapRefType, city: cityType) : Map|null{
+function useMap(mapRef: mapRefType, city: CityType) : Map|null{
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef(false);
 
@@ -15,10 +15,10 @@ function useMap(mapRef: mapRefType, city: cityType) : Map|null{
     if(mapRef.current !== null && !isRenderedRef.current){
       const instance = leaflet.map(mapRef.current, {
         center: {
-          lat: city.lat,
-          lng: city.lng,
+          lat: city.location.latitude,
+          lng: city.location.longitude,
         },
-        zoom: city.zoom,
+        zoom: city.location.zoom,
       });
 
       leaflet
@@ -38,11 +38,11 @@ function useMap(mapRef: mapRefType, city: cityType) : Map|null{
   useEffect(() => {
     if (map) {
       const centerOfMap = map.getCenter();
-      if (centerOfMap.lat !== city.lat || centerOfMap.lng !== city.lng) {
+      if (centerOfMap.lat !== city.location.latitude || centerOfMap.lng !== city.location.longitude) {
         map.flyTo({
-          lat: city.lat,
-          lng: city.lng
-        }, city.zoom, {
+          lat: city.location.latitude,
+          lng: city.location.longitude
+        }, city.location.zoom, {
           duration: 2.0
         });
       }

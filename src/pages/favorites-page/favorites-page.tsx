@@ -1,14 +1,14 @@
 import Header from '../../components/common/header';
-import OfferType from '../../types/offer-type';
-import FavoriteGroup from './favoritesGroup';
+import { OfferPreviewType } from '../../types/offer-type';
+import FavoriteGroup from './favorites-group';
 import { Link } from 'react-router-dom';
 
 type Props={
-  favorites: OfferType[];
+  favorites: OfferPreviewType[];
 }
 
-function groupByCityName(offers: OfferType[]): Record<string, OfferType[]> {
-  return offers.reduce((grouped: Record<string, OfferType[]>, offer) => {
+function groupByCityName(offers: OfferPreviewType[]): Record<string, OfferPreviewType[]> {
+  return offers.reduce((grouped: Record<string, OfferPreviewType[]>, offer) => {
     const cityName = offer.city.name;
     if (!grouped[cityName]) {
       grouped[cityName] = [];
@@ -19,7 +19,7 @@ function groupByCityName(offers: OfferType[]): Record<string, OfferType[]> {
 }
 
 export default function FavoritesPage({favorites}: Props): JSX.Element {
-  const favoritesGroups: Record<string, OfferType[]> = groupByCityName(favorites);
+  const favoritesGroups: Record<string, OfferPreviewType[]> = groupByCityName(favorites);
   return (
     <div className="page">
       <Header showUserLogin={false} />

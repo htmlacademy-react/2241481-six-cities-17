@@ -1,13 +1,13 @@
 import { Icon, layerGroup, Marker } from 'leaflet';
 import { useEffect, useRef } from 'react';
 import useMap from '../../hooks/useMap';
-import cityType from '../../types/city-type';
 import { PIN_MARKER_URL, PIN_MARKER_ACTIVE_URL } from '../../data/leaflet-data';
-import OfferType from '../../types/offer-type';
+import { OfferPreviewType } from '../../types/offer-type';
+import CityType from '../../types/city-type';
 
 type MapProps = {
-  city: cityType;
-  offers: OfferType[];
+  city: CityType;
+  offers: OfferPreviewType[];
   activeOfferId: string | null;
   className: string;
 }

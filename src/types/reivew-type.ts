@@ -1,16 +1,16 @@
-type userType = {
+type UserType = {
     name: string;
     avatarUrl: string;
     isPro: boolean;
 }
 
-type reviewType = {
+type ReviewType = {
     id: string;
     date: string;
-    user: userType;
+    user: UserType;
     comment: string;
     rating: number;
 }
 
-export default reviewType;
-export type {userType};
+export default ReviewType;
+export type {UserType};

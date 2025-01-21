@@ -1,7 +1,8 @@
-import { SortItem } from '../components/consts';
-import OfferType from '../types/offer-type';
+import { MAX_REVIEWS_COUNT, SortItem } from '../components/consts';
+import { OfferPreviewType, OfferType } from '../types/offer-type';
+import ReviewType from '../types/reivew-type';
 
-const sortOffers = (offers: OfferType[], sortingType: SortItem): OfferType[] => {
+const sortOffers = (offers: OfferPreviewType[], sortingType: SortItem): OfferPreviewType[] => {
   switch (sortingType){
     case SortItem.Popular:
       return [...offers];
@@ -17,7 +18,31 @@ const sortOffers = (offers: OfferType[], sortingType: SortItem): OfferType[] => 
   }
 };
 
-const filterOffers = (offers: OfferType[], cityName: string): OfferType[] =>
+const filterOffers = (offers: OfferPreviewType[], cityName: string): OfferPreviewType[] =>
   offers.filter((offer) => (offer.city.name === cityName));
 
-export {sortOffers, filterOffers};
+const convertToOfferPreview = (offer: OfferType): OfferPreviewType => ({
+  id: offer.id,
+  title: offer.title,
+  type: offer.type,
+  price: offer.price,
+  city: offer.city,
+  location: offer.location,
+  isFavorite: offer.isFavorite,
+  isPremium: offer.isPremium,
+  rating: offer.rating,
+  previewImage: offer.images[0] ?? ''
+});
+
+
+const prepareReviews = (reviews: ReviewType[]): ReviewType[] => {
+  const sorted = reviews.toSorted((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return sorted.slice(0, MAX_REVIEWS_COUNT);
+};
+
+export {
+  sortOffers,
+  filterOffers,
+  convertToOfferPreview,
+  prepareReviews
+};

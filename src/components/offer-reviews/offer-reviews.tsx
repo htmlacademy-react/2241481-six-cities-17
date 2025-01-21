@@ -1,12 +1,20 @@
-import AddCommentForm from '../../pages/offer/addCommentForm';
-import reviewType from '../../types/reivew-type';
+import { useAppSelector } from '../../hooks';
+import AddCommentForm from '../../pages/offer-page/add-comment-form';
+import ReviewType from '../../types/reivew-type';
+import { selectAuthorizationStatus, selectOffer } from '../../types/store/selectors';
+import { AuthorizationStatus } from '../consts';
 import ReviewItem from './offer-review-item';
 
 type Props = {
-    reviews: reviewType[];
+    reviews: ReviewType[];
+    onAddComment: ()=> void;
 }
 
-function OfferReviwesList({reviews}: Props): JSX.Element{
+function OfferReviewsList({reviews, onAddComment}: Props): JSX.Element{
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+  const currentOffer = useAppSelector(selectOffer);
+
   return(
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
@@ -15,11 +23,11 @@ function OfferReviwesList({reviews}: Props): JSX.Element{
       <ul className="reviews__list">
         {reviews.map(
           (reviewItem) => <ReviewItem review={reviewItem} key={reviewItem.id}/>
-        )};
+        )}
       </ul>
-      <AddCommentForm />
+      {isAuthorized && <AddCommentForm offer={currentOffer} onAddComment={onAddComment}/>}
     </section>
   );
 }
 
-export default OfferReviwesList;
+export default OfferReviewsList;
