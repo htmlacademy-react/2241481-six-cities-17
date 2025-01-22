@@ -1,9 +1,10 @@
 import Map from '../../components/map/map';
-import OfferCardsList from '../../components/offers-list/offers-list';
 import PlacesSorting from '../../components/sorting/sorting';
 import CITIES_MAP from '../../data/cities';
 import { OfferPreviewType } from '../../types/offer-type';
 import { filterOffers } from '../../utils/utils';
+import { OfferCardsList } from '../../components/offers-list/offers-list';
+import { memo } from 'react';
 
 type Props = {
     offers: OfferPreviewType[];
@@ -35,4 +36,5 @@ function MainPageContent({offers, currentCity, activeOfferId, handleActiveOfferC
     </div>);
 }
 
-export default MainPageContent;
+const MemoizedMainPageContent = memo(MainPageContent);
+export {MemoizedMainPageContent as MainPageContent};

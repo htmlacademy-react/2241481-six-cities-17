@@ -1,8 +1,9 @@
+import { memo } from 'react';
 import { useAppSelector } from '../../hooks';
 import { OfferPreviewType } from '../../types/offer-type';
 import { selectSortingType } from '../../types/store/selectors';
 import { sortOffers } from '../../utils/utils';
-import OfferCard from '../offerCard';
+import { OfferCard } from '../offerCard';
 
 type Props = {
   offers: OfferPreviewType[];
@@ -21,4 +22,6 @@ function OfferCardsList({offers, onActiveOfferCardChanged}: Props) : JSX.Element
   );
 }
 
-export default OfferCardsList;
+
+const MemoizedOfferCardsList = memo(OfferCardsList);
+export { MemoizedOfferCardsList as OfferCardsList };

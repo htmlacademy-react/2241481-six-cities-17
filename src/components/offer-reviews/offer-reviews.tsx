@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../hooks';
-import AddCommentForm from '../../pages/offer-page/add-comment-form';
+import { AddCommentForm } from '../../pages/offer-page/add-comment-form';
 import ReviewType from '../../types/reivew-type';
 import { selectAuthorizationStatus, selectOffer } from '../../types/store/selectors';
 import { AuthorizationStatus } from '../consts';
