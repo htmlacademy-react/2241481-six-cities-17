@@ -1,11 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, requireAuthorization, setComments, setCurrentUser, setIsCommentPostingError, setIsCommentsFetchingError, setIsOffersError, setNearByOffers, setOffer, setOffers, setSotringType } from './action';
+import { changeCity, setIsCommentPostingError, setIsCommentsFetchingError, setIsOffersError, setSotringType } from './action';
 import { OfferPreviewType } from '../types/offer-type';
 import CITIES_MAP from '../data/cities';
 import { AuthorizationStatus, SortItem } from '../components/consts';
-import { fetchComments, fetchNearByOffers, fetchOffer, fetchOffers } from './action-api';
+import { checkAuth, fetchComments, fetchNearByOffers, fetchOffer, fetchOffers, login, logout } from './action-api';
 import StateType from '../types/state-type';
 import CommentType from '../types/comment-type';
+import { dropToken, saveToken } from '../services/token';
 
 const initialState: StateType = {
   currentCity: CITIES_MAP['Paris'].name,
@@ -28,15 +29,6 @@ const initialState: StateType = {
 
 const reducer = createReducer(initialState, (builder)=>{
   builder
-    .addCase(setOffers, (state, action) => {
-      state.offers = action.payload;
-    })
-    .addCase(setComments, (state, action) => {
-      state.comments = action.payload;
-    })
-    .addCase(setNearByOffers, (state, action) => {
-      state.nearBys = action.payload;
-    })
     .addCase(changeCity, (state, action) => {
       state.currentCity = action.payload;
     })
@@ -46,8 +38,9 @@ const reducer = createReducer(initialState, (builder)=>{
     .addCase(fetchOffers.pending, (state) => {
       state.isOffersDataLoading = true;
     })
-    .addCase(fetchOffers.fulfilled, (state) => {
+    .addCase(fetchOffers.fulfilled, (state, action) => {
       state.isOffersDataLoading = false;
+      state.offers = action.payload;
     })
     .addCase(fetchOffers.rejected, (state) => {
       state.isOffersDataLoading = false;
@@ -55,23 +48,40 @@ const reducer = createReducer(initialState, (builder)=>{
     .addCase(fetchNearByOffers.pending, (state) => {
       state.isOffersDataLoading = true;
     })
-    .addCase(fetchNearByOffers.fulfilled, (state) => {
+    .addCase(fetchNearByOffers.fulfilled, (state, action) => {
       state.isOffersDataLoading = false;
+      state.nearBys = action.payload;
     })
     .addCase(fetchNearByOffers.rejected, (state) => {
       state.isOffersDataLoading = false;
     })
-    .addCase(requireAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
-    })
-    .addCase(setCurrentUser, (state, action) => {
+    .addCase(checkAuth.fulfilled, (state, action) => {
+      state.authorizationStatus = AuthorizationStatus.Auth;
       state.currentUser = action.payload;
+    })
+    .addCase(checkAuth.rejected, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NotAuth;
+    })
+    .addCase(login.fulfilled, (state, action) => {
+      state.authorizationStatus = AuthorizationStatus.Auth;
+      state.currentUser = action.payload;
+      saveToken(action.payload.token);
+    })
+    .addCase(login.rejected, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NotAuth;
+      state.currentUser = null;
+    })
+    .addCase(logout.fulfilled, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NotAuth;
+      state.currentUser = null;
+      dropToken();
     })
     .addCase(fetchOffer.pending, (state) => {
       state.isOfferDataLoading = true;
     })
-    .addCase(fetchOffer.fulfilled, (state) => {
+    .addCase(fetchOffer.fulfilled, (state, action) => {
       state.isOfferDataLoading = false;
+      state.offer = action.payload;
     })
     .addCase(fetchOffer.rejected, (state) => {
       state.isOfferDataLoading = false;
@@ -79,14 +89,12 @@ const reducer = createReducer(initialState, (builder)=>{
     .addCase(fetchComments.pending, (state) => {
       state.isOfferDataLoading = true;
     })
-    .addCase(fetchComments.fulfilled, (state) => {
+    .addCase(fetchComments.fulfilled, (state, action) => {
       state.isOfferDataLoading = false;
+      state.comments = action.payload;
     })
     .addCase(fetchComments.rejected, (state) => {
       state.isOfferDataLoading = false;
-    })
-    .addCase(setOffer, (state, action) => {
-      state.offer = action.payload;
     })
     .addCase(setIsOffersError, (state, action) => {
       state.isOffersError = action.payload;

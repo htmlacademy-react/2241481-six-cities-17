@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import CITIES_MAP from '../../data/cities';
 import { fetchComments, fetchNearByOffers, fetchOffer } from '../../store/action-api';
 import { useEffect } from 'react';
-import { selectComments, selectCurrentCity, selectIsOfferDataLoading, selectNearBys, selectOffer } from '../../types/store/selectors';
+import { selectAuthorizationStatus, selectComments, selectCurrentCity, selectIsOfferDataLoading, selectNearBys, selectOffer } from '../../types/store/selectors';
 import Header from '../../components/common/header';
 import Spinner from '../../components/spinner/spinner';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
@@ -15,6 +15,7 @@ import OfferGoods from '../../components/offer-goods/offer-goods';
 import NearByPlaces from '../../components/offer-near-by-places/offer-near-by-places';
 import { convertToOfferPreview, prepareReviews } from '../../utils/utils';
 import PageNotFoundPage from '../not-found-page/not-found-page';
+import { AuthorizationStatus } from '../../components/consts';
 
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -36,6 +37,9 @@ function OfferPage(): JSX.Element {
     dispatch(fetchComments(offerId));
   };
 
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+
   const emptyHost: HostType = {name: 'unknown host', avatarUrl: '', isPro: false};
   const currentCity = useAppSelector(selectCurrentCity);
   const offer = useAppSelector(selectOffer);
@@ -43,7 +47,7 @@ function OfferPage(): JSX.Element {
   const nearBysFull = useAppSelector(selectNearBys);
 
   const nearBysCropped = nearBysFull?.slice(0, 3) ?? [];
-  const nearBysCorppedWithActive = [...nearBysCropped];
+  const nearBysCroppedWithActive = [...nearBysCropped];
   const comments = prepareReviews(commentsAll);
 
 
@@ -51,7 +55,7 @@ function OfferPage(): JSX.Element {
     return <PageNotFoundPage/>;
   }else{
     if (offer !== null){
-      nearBysCorppedWithActive.push(convertToOfferPreview(offer));
+      nearBysCroppedWithActive.push(convertToOfferPreview(offer));
     }
   }
   return (
@@ -111,10 +115,10 @@ function OfferPage(): JSX.Element {
                   </p>
                 </div>
               </div>
-              {comments.length > 0 ? <OfferReviewsList reviews={comments} onAddComment={addCommentHandler}/> : ''}
+              {(comments.length === 0 && !isAuthorized) ? null : <OfferReviewsList reviews={comments} onAddComment={addCommentHandler} isAuthorized={isAuthorized}/>}
             </div>
           </div>
-          <Map city={CITIES_MAP[currentCity]} offers={nearBysCorppedWithActive} activeOfferId={offer?.id ?? null} className='offer__map map' />
+          <Map city={CITIES_MAP[currentCity]} offers={nearBysCroppedWithActive} activeOfferId={offer?.id ?? null} className='offer__map map' />
         </section>
         <div className="container">
           <NearByPlaces places={nearBysCropped}/>
@@ -123,6 +127,5 @@ function OfferPage(): JSX.Element {
     </div>
   );
 }
-
 
 export default OfferPage;
