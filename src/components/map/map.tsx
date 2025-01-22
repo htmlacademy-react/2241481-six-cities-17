@@ -1,5 +1,5 @@
 import { Icon, layerGroup, Marker } from 'leaflet';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import useMap from '../../hooks/useMap';
 import { PIN_MARKER_URL, PIN_MARKER_ACTIVE_URL } from '../../data/leaflet-data';
 import { OfferPreviewType } from '../../types/offer-type';
@@ -16,17 +16,17 @@ function Map({city, offers, activeOfferId, className}: MapProps): JSX.Element{
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
-  const icon = new Icon({
+  const icon = useMemo(() => new Icon({
     iconUrl: PIN_MARKER_URL,
     iconSize: [28, 40],
     anchor: [14, 40],
-  });
+  }), []);
 
-  const iconActive = new Icon({
+  const iconActive = useMemo(() => new Icon({
     iconUrl: PIN_MARKER_ACTIVE_URL,
     iconSize: [28, 40],
     anchor: [14, 40],
-  });
+  }), []);
 
   useEffect(()=>{
     if (map){
@@ -46,7 +46,7 @@ function Map({city, offers, activeOfferId, className}: MapProps): JSX.Element{
       };
     }
 
-  }, [map, city, offers, activeOfferId]);
+  }, [map, city, offers, activeOfferId, icon, iconActive]);
 
   return (
     <section className={className} ref={mapRef}/>

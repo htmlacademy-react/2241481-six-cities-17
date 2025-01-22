@@ -29,6 +29,10 @@ enum SortItem {
     Rating = 'Top rate first'
 }
 
+enum NameSpace {
+  App = 'App'
+}
+
 const REVIEW_THRESHOLD = {
   MIN: 5,
   MAX: 300
@@ -54,6 +58,7 @@ export {
   AppRoute,
   ApiRoute,
   SortItem,
+  NameSpace,
   REVIEW_THRESHOLD,
   RATING_THRESHOLD,
   RATIMG_MAP,

@@ -23,4 +23,11 @@ type StateType = {
   isCommentPostingError: boolean;
 }
 
+type AppStateType = {
+  currentCity: string;
+  sortingType: SortItem;
+}
+
 export default StateType;
+export type {AppStateType};
+
