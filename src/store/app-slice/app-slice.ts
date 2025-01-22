@@ -1,21 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import StateType from '../../types/state-type';
 import CITIES_MAP from '../../data/cities';
-import { AuthorizationStatus, SortItem } from '../../components/consts';
-import { OfferPreviewType } from '../../types/offer-type';
+import { AuthorizationStatus, NameSpace, SortItem } from '../../components/consts';
 import CommentType from '../../types/comment-type';
-import { checkAuth, fetchComments, fetchNearByOffers, fetchOffer, fetchOffers, login, logout } from '../action-api';
+import { checkAuth, fetchComments, fetchNearByOffers, fetchOffer, login, logout } from '../action-api';
 import { dropToken, saveToken } from '../../services/token';
-import { setIsCommentPostingError, setIsCommentsFetchingError, setIsOffersError } from '../action';
+import { setIsCommentPostingError, setIsCommentsFetchingError } from '../action';
+import { AppStateType } from '../../types/state-type';
 
-// const initialStateApp: AppStateType = {
-//   currentCity: CITIES_MAP[0].name,
-//   sortingType: SortItem.Popular
-// };
-
-const initialState: StateType = {
+const initialState: AppStateType = {
   currentCity: CITIES_MAP['Paris'].name,
-  offers: [] as OfferPreviewType[],
   comments: [] as CommentType[],
   sortingType: SortItem.Popular,
   isOffersDataLoading: false,
@@ -27,13 +20,12 @@ const initialState: StateType = {
   offer: null,
   nearBys: null,
   reviews: null,
-  isOffersError: false,
   isCommentsFetchingError: false,
   isCommentPostingError: false,
 };
 
 const AppSlice = createSlice({
-  name: 'App',
+  name: NameSpace.App,
   initialState,
   reducers: {
     changeCity: (state, action: PayloadAction<string>) => {
@@ -45,16 +37,6 @@ const AppSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchOffers.pending, (state) => {
-        state.isOffersDataLoading = true;
-      })
-      .addCase(fetchOffers.fulfilled, (state, action) => {
-        state.isOffersDataLoading = false;
-        state.offers = action.payload;
-      })
-      .addCase(fetchOffers.rejected, (state) => {
-        state.isOffersDataLoading = false;
-      })
       .addCase(fetchNearByOffers.pending, (state) => {
         state.isOffersDataLoading = true;
       })
@@ -105,9 +87,6 @@ const AppSlice = createSlice({
       })
       .addCase(fetchComments.rejected, (state) => {
         state.isOfferDataLoading = false;
-      })
-      .addCase(setIsOffersError, (state, action) => {
-        state.isOffersError = action.payload;
       })
       .addCase(setIsCommentsFetchingError, (state, action) => {
         state.isCommentsFetchingError = action.payload;

@@ -4,9 +4,8 @@ import { OfferPreviewType, OfferType } from './offer-type';
 import ReviewType from './reivew-type';
 import UserDataType from './user-data';
 
-type StateType = {
+type AppStateType = {
   currentCity: string;
-  offers: OfferPreviewType[];
   comments: CommentType[];
   sortingType: SortItem;
   isOffersDataLoading: boolean;
@@ -18,16 +17,17 @@ type StateType = {
   offer: OfferType | null;
   nearBys: OfferPreviewType[] | null;
   reviews: ReviewType[] | null;
-  isOffersError: boolean;
   isCommentsFetchingError: boolean;
   isCommentPostingError: boolean;
 }
 
-type AppStateType = {
-  currentCity: string;
-  sortingType: SortItem;
+type OffersStateType = {
+  offers: OfferPreviewType[];
+  isOffersDataLoading: boolean;
 }
 
-export default StateType;
-export type {AppStateType};
+export type {
+  AppStateType,
+  OffersStateType
+};
 
