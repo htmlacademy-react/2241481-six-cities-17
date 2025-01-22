@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo } from 'react';
 import Header from '../../components/common/header';
 import CityTabs from '../../components/city-tabs/city-tabs';
 import { useAppSelector } from '../../hooks';
@@ -10,11 +10,6 @@ import { selectCurrentCity, selectIsOffersDataLoading, selectOffers } from '../.
 
 
 function MainPage(): JSX.Element{
-  const [activeOffer, setActiveOffer] = useState<string | null>(null);
-  const handleActiveOfferChange = useCallback((id: string | null) => {
-    setActiveOffer(id);
-  }, []);
-
   const offers: OfferPreviewType[] = useAppSelector(selectOffers);
   const currentCity = useAppSelector(selectCurrentCity);
   const isOffersDataLoading = useAppSelector(selectIsOffersDataLoading);
@@ -32,8 +27,6 @@ function MainPage(): JSX.Element{
           <MainPageContent
             offers={offers}
             currentCity={currentCity}
-            activeOfferId={activeOffer}
-            handleActiveOfferChange={handleActiveOfferChange}
           /> :
           <OffersEmpty
             cityName={currentCity}

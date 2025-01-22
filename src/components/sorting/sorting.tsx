@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { SortItem } from '../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setSotringType } from '../../store/action';
@@ -50,5 +50,6 @@ function PlacesSorting(): JSX.Element{
     </form>
   );
 }
+const MemorizedPlaceSorting = memo(PlacesSorting);
+export {MemorizedPlaceSorting as PlacesSorting};
 
-export default PlacesSorting;
