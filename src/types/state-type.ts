@@ -9,12 +9,10 @@ type AppStateType = {
   comments: CommentType[];
   sortingType: SortItem;
   isOffersDataLoading: boolean;
-  isOfferDataLoading: boolean;
   isNearByDataLoading: boolean;
   isReviewsDataLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   currentUser: UserDataType | null;
-  offer: OfferType | null;
   nearBys: OfferPreviewType[] | null;
   reviews: ReviewType[] | null;
   isCommentsFetchingError: boolean;
@@ -26,8 +24,14 @@ type OffersStateType = {
   isOffersDataLoading: boolean;
 }
 
+type OfferStateType = {
+  offer: OfferType | null;
+  isOfferDataLoading: boolean;
+}
+
 export type {
   AppStateType,
-  OffersStateType
+  OfferStateType,
+  OffersStateType,
 };
 

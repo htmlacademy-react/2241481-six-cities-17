@@ -1,7 +1,7 @@
 import { memo, MouseEvent, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { changeCity } from '../../store/action';
 import { useAppDispatch } from '../../hooks';
+import { changeCity } from '../../store/app-slice/app-slice';
 
 type Props = {
     cityName: string;

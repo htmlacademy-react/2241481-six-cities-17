@@ -1,7 +1,7 @@
 import { useAppSelector } from '../../hooks';
 import { AddCommentForm } from '../../pages/offer-page/add-comment-form';
+import { selectOffer } from '../../store/offer-slice/selectors';
 import ReviewType from '../../types/reivew-type';
-import { selectOffer } from '../../types/store/selectors';
 import ReviewItem from './offer-review-item';
 
 type Props = {

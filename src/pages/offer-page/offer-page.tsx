@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import CITIES_MAP from '../../data/cities';
 import { fetchComments, fetchNearByOffers, fetchOffer } from '../../store/action-api';
 import { useEffect } from 'react';
-import { selectAuthorizationStatus, selectComments, selectCurrentCity, selectIsOfferDataLoading, selectNearBys, selectOffer } from '../../types/store/selectors';
+import { selectAuthorizationStatus, selectComments, selectCurrentCity, selectNearBys } from '../../types/store/selectors';
 import Header from '../../components/common/header';
 import Spinner from '../../components/spinner/spinner';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
@@ -16,6 +16,7 @@ import NearByPlaces from '../../components/offer-near-by-places/offer-near-by-pl
 import { convertToOfferPreview, prepareReviews } from '../../utils/utils';
 import PageNotFoundPage from '../not-found-page/not-found-page';
 import { AuthorizationStatus } from '../../components/consts';
+import { selectIsOfferDataLoading, selectOffer } from '../../store/offer-slice/selectors';
 
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
