@@ -7,11 +7,9 @@ import UserDataType from './user-data';
 type AppStateType = {
   currentCity: string;
   sortingType: SortItem;
-  isNearByDataLoading: boolean;
   isReviewsDataLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   currentUser: UserDataType | null;
-  nearBys: OfferPreviewType[] | null;
   reviews: ReviewType[] | null;
   isCommentsFetchingError: boolean;
   isCommentPostingError: boolean;
@@ -32,11 +30,16 @@ type CommentsStateType = {
   isCommentsDataLoading: boolean;
 }
 
+type NearByStateType = {
+  nearBys: OfferPreviewType[] | null;
+  isNearByDataLoading: boolean;
+}
 
 export type {
   AppStateType,
   OfferStateType,
   OffersStateType,
-  CommentsStateType
+  CommentsStateType,
+  NearByStateType
 };
 

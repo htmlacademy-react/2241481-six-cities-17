@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import CITIES_MAP from '../../data/cities';
 import { AuthorizationStatus, NameSpace, SortItem } from '../../components/consts';
-import { checkAuth, fetchNearByOffers, login, logout } from '../action-api';
+import { checkAuth, login, logout } from '../action-api';
 import { dropToken, saveToken } from '../../services/token';
 import { setIsCommentPostingError, setIsCommentsFetchingError } from '../action';
 import { AppStateType } from '../../types/state-type';
@@ -9,11 +9,9 @@ import { AppStateType } from '../../types/state-type';
 const initialState: AppStateType = {
   currentCity: CITIES_MAP['Paris'].name,
   sortingType: SortItem.Popular,
-  isNearByDataLoading: false,
   isReviewsDataLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   currentUser: null,
-  nearBys: null,
   reviews: null,
   isCommentsFetchingError: false,
   isCommentPostingError: false,
@@ -32,16 +30,6 @@ const AppSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchNearByOffers.pending, (state) => {
-        state.isNearByDataLoading = true;
-      })
-      .addCase(fetchNearByOffers.fulfilled, (state, action) => {
-        state.isNearByDataLoading = false;
-        state.nearBys = action.payload;
-      })
-      .addCase(fetchNearByOffers.rejected, (state) => {
-        state.isNearByDataLoading = false;
-      })
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.currentUser = action.payload;
