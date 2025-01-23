@@ -1,5 +1,5 @@
-import { AppState } from '.';
 import { NameSpace } from '../../components/consts';
+import { AppState } from '../../types/store';
 
 const selectComments = (state: AppState) => state[NameSpace.App].comments;
 const selectSortingType = (state: AppState) => state[NameSpace.App].sortingType;

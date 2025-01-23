@@ -1,8 +1,8 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import { SortItem } from '../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { selectSortingType } from '../../types/store/selectors';
 import { setSotringType } from '../../store/app-slice/app-slice';
+import { selectSortingType } from '../../store/app-slice/selectors';
 
 function PlacesSorting(): JSX.Element{
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);

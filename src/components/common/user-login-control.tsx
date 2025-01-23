@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logout } from '../../store/action-api';
-import { selectAuthorizationStatus, selectCurrentUser } from '../../types/store/selectors';
+import { selectAuthorizationStatus, selectCurrentUser } from '../../store/app-slice/selectors';
 
 function UserLoginControl(): JSX.Element{
   const dispatch = useAppDispatch();

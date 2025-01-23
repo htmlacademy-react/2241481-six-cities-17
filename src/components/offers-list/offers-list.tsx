@@ -1,9 +1,9 @@
 import { memo } from 'react';
 import { useAppSelector } from '../../hooks';
 import { OfferPreviewType } from '../../types/offer-type';
-import { selectSortingType } from '../../types/store/selectors';
 import { sortOffers } from '../../utils/utils';
 import { OfferCard } from '../offerCard';
+import { selectSortingType } from '../../store/app-slice/selectors';
 
 type Props = {
   offers: OfferPreviewType[];

@@ -6,8 +6,8 @@ import { MainPageContent } from './main-page-content';
 import OffersEmpty from '../offer-page/offers-empty';
 import Spinner from '../../components/spinner/spinner';
 import { OfferPreviewType } from '../../types/offer-type';
-import { selectCurrentCity} from '../../types/store/selectors';
 import { selectIsOffersDataLoading, selectOffers } from '../../store/offers-slice/selectors';
+import { selectCurrentCity } from '../../store/app-slice/selectors';
 
 
 function MainPage(): JSX.Element{

@@ -8,7 +8,7 @@ type AppStateType = {
   currentCity: string;
   comments: CommentType[];
   sortingType: SortItem;
-  isOffersDataLoading: boolean;
+  isCommentsDataLoading: boolean;
   isNearByDataLoading: boolean;
   isReviewsDataLoading: boolean;
   authorizationStatus: AuthorizationStatus;
