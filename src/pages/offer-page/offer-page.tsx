@@ -55,7 +55,7 @@ function OfferPage(): JSX.Element {
 
   const nearBysCropped = nearBysFull?.slice(0, 3) ?? [];
   const nearBysCroppedWithActive = [...nearBysCropped];
-  const comments = prepareReviews(commentsAll);
+  const comments = prepareReviews(commentsAll ?? []);
 
 
   if (!offer && !isOfferDataLoading){
