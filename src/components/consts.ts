@@ -34,7 +34,8 @@ enum NameSpace {
   Offers = 'Offers',
   Offer = 'Offer',
   Comments = 'Comments',
-  NearBy = 'NearBy'
+  NearBy = 'NearBy',
+  User = 'User'
 }
 
 const REVIEW_THRESHOLD = {

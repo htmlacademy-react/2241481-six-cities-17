@@ -1,16 +1,11 @@
 import { AuthorizationStatus, SortItem } from '../components/consts';
 import CommentType from './comment-type';
 import { OfferPreviewType, OfferType } from './offer-type';
-import ReviewType from './reivew-type';
 import UserDataType from './user-data';
 
 type AppStateType = {
   currentCity: string;
   sortingType: SortItem;
-  isReviewsDataLoading: boolean;
-  authorizationStatus: AuthorizationStatus;
-  currentUser: UserDataType | null;
-  reviews: ReviewType[] | null;
   isCommentsFetchingError: boolean;
   isCommentPostingError: boolean;
 }
@@ -26,7 +21,7 @@ type OfferStateType = {
 }
 
 type CommentsStateType = {
-  comments: CommentType[];
+  comments: CommentType[] | null;
   isCommentsDataLoading: boolean;
 }
 
@@ -35,11 +30,17 @@ type NearByStateType = {
   isNearByDataLoading: boolean;
 }
 
+type UserStateType = {
+  currentUser: UserDataType | null;
+  authorizationStatus: AuthorizationStatus;
+}
+
 export type {
   AppStateType,
   OfferStateType,
   OffersStateType,
   CommentsStateType,
-  NearByStateType
+  NearByStateType,
+  UserStateType
 };
 

@@ -1,11 +1,11 @@
 import { useAppSelector } from '../../hooks';
 import { AddCommentForm } from '../../pages/offer-page/add-comment-form';
 import { selectOffer } from '../../store/offer-slice/selectors';
-import ReviewType from '../../types/reivew-type';
+import CommentType from '../../types/comment-type';
 import ReviewItem from './offer-review-item';
 
 type Props = {
-    reviews: ReviewType[];
+    reviews: CommentType[];
     onAddComment: ()=> void;
     isAuthorized: boolean;
 }
