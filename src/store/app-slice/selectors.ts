@@ -1,7 +1,6 @@
 import { NameSpace } from '../../components/consts';
 import { AppState } from '../../types/store';
 
-const selectComments = (state: AppState) => state[NameSpace.App].comments;
 const selectSortingType = (state: AppState) => state[NameSpace.App].sortingType;
 const selectCurrentCity = (state: AppState): string => state[NameSpace.App].currentCity;
 const selectIsNearByDataLoading = (state: AppState) => state[NameSpace.App].isNearByDataLoading;
@@ -13,7 +12,6 @@ const selectReviews = (state: AppState) => state[NameSpace.App].reviews;
 const selectIsCommentsFetchingError = (state: AppState) => state[NameSpace.App].isCommentsFetchingError;
 
 export {
-  selectComments,
   selectSortingType,
   selectCurrentCity,
   selectIsNearByDataLoading,

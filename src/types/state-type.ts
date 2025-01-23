@@ -6,9 +6,7 @@ import UserDataType from './user-data';
 
 type AppStateType = {
   currentCity: string;
-  comments: CommentType[];
   sortingType: SortItem;
-  isCommentsDataLoading: boolean;
   isNearByDataLoading: boolean;
   isReviewsDataLoading: boolean;
   authorizationStatus: AuthorizationStatus;
@@ -29,9 +27,16 @@ type OfferStateType = {
   isOfferDataLoading: boolean;
 }
 
+type CommentsStateType = {
+  comments: CommentType[];
+  isCommentsDataLoading: boolean;
+}
+
+
 export type {
   AppStateType,
   OfferStateType,
   OffersStateType,
+  CommentsStateType
 };
 

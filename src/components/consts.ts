@@ -32,7 +32,8 @@ enum SortItem {
 enum NameSpace {
   App = 'App',
   Offers = 'Offers',
-  Offer = 'Offer'
+  Offer = 'Offer',
+  Comments = 'Comments'
 }
 
 const REVIEW_THRESHOLD = {

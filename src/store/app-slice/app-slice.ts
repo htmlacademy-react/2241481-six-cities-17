@@ -1,17 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import CITIES_MAP from '../../data/cities';
 import { AuthorizationStatus, NameSpace, SortItem } from '../../components/consts';
-import CommentType from '../../types/comment-type';
-import { checkAuth, fetchComments, fetchNearByOffers, login, logout } from '../action-api';
+import { checkAuth, fetchNearByOffers, login, logout } from '../action-api';
 import { dropToken, saveToken } from '../../services/token';
 import { setIsCommentPostingError, setIsCommentsFetchingError } from '../action';
 import { AppStateType } from '../../types/state-type';
 
 const initialState: AppStateType = {
   currentCity: CITIES_MAP['Paris'].name,
-  comments: [] as CommentType[],
   sortingType: SortItem.Popular,
-  isCommentsDataLoading: false,
   isNearByDataLoading: false,
   isReviewsDataLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -65,16 +62,6 @@ const AppSlice = createSlice({
         state.authorizationStatus = AuthorizationStatus.NotAuth;
         state.currentUser = null;
         dropToken();
-      })
-      .addCase(fetchComments.pending, (state) => {
-        state.isCommentsDataLoading = true;
-      })
-      .addCase(fetchComments.fulfilled, (state, action) => {
-        state.isCommentsDataLoading = false;
-        state.comments = action.payload;
-      })
-      .addCase(fetchComments.rejected, (state) => {
-        state.isCommentsDataLoading = false;
       })
       .addCase(setIsCommentsFetchingError, (state, action) => {
         state.isCommentsFetchingError = action.payload;

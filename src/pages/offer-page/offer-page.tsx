@@ -16,11 +16,14 @@ import { convertToOfferPreview, prepareReviews } from '../../utils/utils';
 import PageNotFoundPage from '../not-found-page/not-found-page';
 import { AuthorizationStatus } from '../../components/consts';
 import { selectIsOfferDataLoading, selectOffer } from '../../store/offer-slice/selectors';
-import { selectAuthorizationStatus, selectComments, selectCurrentCity, selectNearBys } from '../../store/app-slice/selectors';
+import { selectAuthorizationStatus, selectCurrentCity, selectNearBys } from '../../store/app-slice/selectors';
+import { selectComments, selectIsCommentsDataLoading } from '../../store/comments-slice/selectors';
 
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const isOfferDataLoading = useAppSelector(selectIsOfferDataLoading);
+  const isCommentDataLoading = useAppSelector(selectIsCommentsDataLoading);
+  const isDataLoading = isOfferDataLoading || isCommentDataLoading;
 
   const {id} = useParams<{id: string}>();
   const offerId = id ?? '';
@@ -62,7 +65,7 @@ function OfferPage(): JSX.Element {
   return (
     <div className="page">
       <Header showUserLogin />
-      {isOfferDataLoading && <Spinner />}
+      {isDataLoading && <Spinner />}
       <main className="page__main page__main--offer">
         <section className="offer">
           <OfferGallery />
