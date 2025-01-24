@@ -33,6 +33,7 @@ type NearByStateType = {
 type UserStateType = {
   currentUser: UserDataType | null;
   authorizationStatus: AuthorizationStatus;
+  isRequestPending: boolean;
 }
 
 export type {

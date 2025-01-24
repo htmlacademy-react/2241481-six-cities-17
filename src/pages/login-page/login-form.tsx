@@ -1,8 +1,9 @@
 import { FormEvent, useRef } from 'react';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../store/action-api';
 import { AppRoute } from '../../components/consts';
+import { selectIsRequestPending } from '../../store/user-slice/selectors';
 
 function LoginForm(): JSX.Element{
 
@@ -10,6 +11,8 @@ function LoginForm(): JSX.Element{
   const navigate = useNavigate();
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const isPending = useAppSelector(selectIsRequestPending);
 
   const submitHanlder = (evt: FormEvent<HTMLFormElement>) =>{
     evt.preventDefault();
@@ -40,6 +43,7 @@ function LoginForm(): JSX.Element{
           type="email"
           name="email"
           placeholder="Email"
+          disabled={isPending}
           ref={loginRef}
           required
         />
@@ -51,11 +55,18 @@ function LoginForm(): JSX.Element{
           type="password"
           name="password"
           placeholder="Password"
+          disabled={isPending}
           ref={passwordRef}
           required
         />
       </div>
-      <button className="login__submit form__submit button" type="submit">Sign in</button>
+      <button
+        className="login__submit form__submit button"
+        type="submit"
+        disabled={isPending}
+      >
+        Sign in
+      </button>
     </form>
   );
 }

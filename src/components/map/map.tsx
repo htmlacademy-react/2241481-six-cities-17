@@ -1,9 +1,21 @@
 import { Icon, layerGroup, Marker } from 'leaflet';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import useMap from '../../hooks/useMap';
 import { PIN_MARKER_URL, PIN_MARKER_ACTIVE_URL } from '../../data/leaflet-data';
 import { OfferPreviewType } from '../../types/offer-type';
 import CityType from '../../types/city-type';
+
+const icon = new Icon({
+  iconUrl: PIN_MARKER_URL,
+  iconSize: [28, 40],
+  anchor: [14, 40],
+});
+
+const iconActive = new Icon({
+  iconUrl: PIN_MARKER_ACTIVE_URL,
+  iconSize: [28, 40],
+  anchor: [14, 40],
+});
 
 type MapProps = {
   city: CityType;
@@ -15,18 +27,6 @@ type MapProps = {
 function Map({city, offers, activeOfferId, className}: MapProps): JSX.Element{
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-
-  const icon = useMemo(() => new Icon({
-    iconUrl: PIN_MARKER_URL,
-    iconSize: [28, 40],
-    anchor: [14, 40],
-  }), []);
-
-  const iconActive = useMemo(() => new Icon({
-    iconUrl: PIN_MARKER_ACTIVE_URL,
-    iconSize: [28, 40],
-    anchor: [14, 40],
-  }), []);
 
   useEffect(()=>{
     if (map){
@@ -46,7 +46,7 @@ function Map({city, offers, activeOfferId, className}: MapProps): JSX.Element{
       };
     }
 
-  }, [map, city, offers, activeOfferId, icon, iconActive]);
+  }, [map, city, offers, activeOfferId]);
 
   return (
     <section className={className} ref={mapRef}/>

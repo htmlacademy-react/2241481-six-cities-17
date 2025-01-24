@@ -2,12 +2,13 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logout } from '../../store/action-api';
-import { selectAuthorizationStatus, selectCurrentUser } from '../../store/user-slice/selectors';
+import { selectAuthorizationStatus, selectCurrentUser, selectIsRequestPending } from '../../store/user-slice/selectors';
 
 function UserLoginControl(): JSX.Element{
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isRequestPending = useAppSelector(selectIsRequestPending);
   const logoutHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
     dispatch(logout());
@@ -35,7 +36,7 @@ function UserLoginControl(): JSX.Element{
             <li className="header__nav-item">
               <Link className="header__nav-link"
                 to="#"
-                onClick={logoutHandler}
+                onClick={isRequestPending ? ()=>{} : logoutHandler}
               >
                 <span className="header__signout">Sign out</span>
               </Link>
