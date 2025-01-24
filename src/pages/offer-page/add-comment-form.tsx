@@ -1,11 +1,11 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, memo, useState } from 'react';
 import { RATING_THRESHOLD, REVIEW_THRESHOLD } from '../../components/consts';
 import { useAppDispatch } from '../../hooks';
 import { postComment } from '../../store/action-api';
 import { OfferType } from '../../types/offer-type';
 import { PostCommentType } from '../../types/comment-type';
 import ErrorBlock from '../../components/error/error';
-import Rating from './rating-block';
+import { Rating } from './rating-block';
 import SubmitTip from './submit-tip';
 
 type ReviewFormDataType = {
@@ -97,5 +97,6 @@ function AddCommentForm({offer, onAddComment}: Props): JSX.Element {
   );
 }
 
-export default AddCommentForm;
+const MemoizedAddCommentForm = memo(AddCommentForm);
+export { MemoizedAddCommentForm as AddCommentForm };
 export type {ReviewFormDataType};

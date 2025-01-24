@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, memo } from 'react';
 import { RATIMG_MAP } from '../../components/consts';
 
 type Props = {
@@ -28,4 +28,5 @@ function Star({onChangeHandler, index, isChecked}: Props): JSX.Element{
   );
 }
 
-export default Star;
+const MemoizedStar = memo(Star);
+export {MemoizedStar as Star};

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-export default function FavoritesEmptyPage(): JSX.Element {
+function FavoritesEmptyPage(): JSX.Element {
   return (
     <div className="page page--favorites-empty">
       <header className="header">
@@ -50,3 +50,5 @@ export default function FavoritesEmptyPage(): JSX.Element {
     </div>
   );
 }
+
+export default FavoritesEmptyPage;

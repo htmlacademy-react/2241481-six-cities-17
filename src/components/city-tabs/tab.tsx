@@ -1,7 +1,7 @@
-import { MouseEvent } from 'react';
+import { memo, MouseEvent, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { changeCity } from '../../store/action';
 import { useAppDispatch } from '../../hooks';
+import { changeCity } from '../../store/app-slice/app-slice';
 
 type Props = {
     cityName: string;
@@ -10,10 +10,10 @@ type Props = {
 
 function Tab({cityName, isActive}: Props): JSX.Element{
   const dispatch = useAppDispatch();
-  const cityTabClickHandler = (evt: MouseEvent<HTMLAnchorElement>) => {
+  const cityTabClickHandler = useCallback((evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
     dispatch(changeCity(cityName));
-  };
+  }, [cityName, dispatch]);
 
   return (
     <li className="locations__item">
@@ -26,5 +26,6 @@ function Tab({cityName, isActive}: Props): JSX.Element{
     </li>
   );
 }
+const MemorizedTab = memo(Tab);
+export { MemorizedTab as Tab} ;
 
-export default Tab;

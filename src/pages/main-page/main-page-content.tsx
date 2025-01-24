@@ -1,19 +1,23 @@
 import Map from '../../components/map/map';
-import OfferCardsList from '../../components/offers-list/offers-list';
-import PlacesSorting from '../../components/sorting/sorting';
+import { PlacesSorting } from '../../components/sorting/sorting';
 import CITIES_MAP from '../../data/cities';
 import { OfferPreviewType } from '../../types/offer-type';
 import { filterOffers } from '../../utils/utils';
+import { OfferCardsList } from '../../components/offers-list/offers-list';
+import { memo, useCallback, useMemo, useState } from 'react';
 
 type Props = {
     offers: OfferPreviewType[];
     currentCity: string;
-    activeOfferId: string | null;
-    handleActiveOfferChange: (id: string | null) => void;
 }
 
-function MainPageContent({offers, currentCity, activeOfferId, handleActiveOfferChange}: Props): JSX.Element{
-  const filteredOffers = filterOffers(offers, currentCity);
+function MainPageContent({offers, currentCity}: Props): JSX.Element{
+  const filteredOffers = useMemo(()=> filterOffers(offers, currentCity), [offers, currentCity]);
+  const [activeOfferId, setActiveOffer] = useState<string | null>(null);
+  const handleActiveOfferChange = useCallback((id: string | null) => {
+    setActiveOffer(id);
+  }, []);
+
   return(
     <div className="cities">
       <div className="cities__places-container container">
@@ -35,4 +39,5 @@ function MainPageContent({offers, currentCity, activeOfferId, handleActiveOfferC
     </div>);
 }
 
-export default MainPageContent;
+const MemoizedMainPageContent = memo(MainPageContent);
+export {MemoizedMainPageContent as MainPageContent};

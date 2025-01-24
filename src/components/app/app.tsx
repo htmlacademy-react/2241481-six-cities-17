@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { OfferPreviewType } from '../../types/offer-type';
 import { AppRoute } from '../consts';
-import MainPage from '../../pages/main-page/main-page';
+import { MainPage } from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';

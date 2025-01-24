@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-export default function OfferNotLoggedPage(): JSX.Element {
+function OfferNotLoggedPage(): JSX.Element {
   return (
     <div className="page">
       <header className="header">
@@ -282,3 +282,5 @@ export default function OfferNotLoggedPage(): JSX.Element {
     </div>
   );
 }
+
+export default OfferNotLoggedPage;

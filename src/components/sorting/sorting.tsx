@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { SortItem } from '../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setSotringType } from '../../store/action';
-import { selectSortingType } from '../../types/store/selectors';
+import { setSotringType } from '../../store/app-slice/app-slice';
+import { selectSortingType } from '../../store/app-slice/selectors';
 
 function PlacesSorting(): JSX.Element{
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
@@ -50,5 +50,6 @@ function PlacesSorting(): JSX.Element{
     </form>
   );
 }
+const MemorizedPlaceSorting = memo(PlacesSorting);
+export {MemorizedPlaceSorting as PlacesSorting};
 
-export default PlacesSorting;

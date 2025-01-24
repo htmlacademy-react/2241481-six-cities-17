@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import CITIES_MAP from '../../data/cities';
 import { fetchComments, fetchNearByOffers, fetchOffer } from '../../store/action-api';
 import { useEffect } from 'react';
-import { selectComments, selectCurrentCity, selectIsOfferDataLoading, selectNearBys, selectOffer } from '../../types/store/selectors';
 import Header from '../../components/common/header';
 import Spinner from '../../components/spinner/spinner';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
@@ -15,10 +14,19 @@ import OfferGoods from '../../components/offer-goods/offer-goods';
 import NearByPlaces from '../../components/offer-near-by-places/offer-near-by-places';
 import { convertToOfferPreview, prepareReviews } from '../../utils/utils';
 import PageNotFoundPage from '../not-found-page/not-found-page';
+import { AuthorizationStatus } from '../../components/consts';
+import { selectIsOfferDataLoading, selectOffer } from '../../store/offer-slice/selectors';
+import { selectCurrentCity } from '../../store/app-slice/selectors';
+import { selectComments, selectIsCommentsDataLoading } from '../../store/comments-slice/selectors';
+import { selectIsNearByDataLoading, selectNearBys } from '../../store/near-by-slice/selectors';
+import { selectAuthorizationStatus } from '../../store/user-slice/selectors';
 
-export default function OfferPage(): JSX.Element {
+function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const isOfferDataLoading = useAppSelector(selectIsOfferDataLoading);
+  const isCommentDataLoading = useAppSelector(selectIsCommentsDataLoading);
+  const isNearByDataLoading = useAppSelector(selectIsNearByDataLoading);
+  const isDataLoading = isOfferDataLoading || isCommentDataLoading || isNearByDataLoading;
 
   const {id} = useParams<{id: string}>();
   const offerId = id ?? '';
@@ -36,6 +44,9 @@ export default function OfferPage(): JSX.Element {
     dispatch(fetchComments(offerId));
   };
 
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+
   const emptyHost: HostType = {name: 'unknown host', avatarUrl: '', isPro: false};
   const currentCity = useAppSelector(selectCurrentCity);
   const offer = useAppSelector(selectOffer);
@@ -43,21 +54,21 @@ export default function OfferPage(): JSX.Element {
   const nearBysFull = useAppSelector(selectNearBys);
 
   const nearBysCropped = nearBysFull?.slice(0, 3) ?? [];
-  const nearBysCorppedWithActive = [...nearBysCropped];
-  const comments = prepareReviews(commentsAll);
+  const nearBysCroppedWithActive = [...nearBysCropped];
+  const comments = prepareReviews(commentsAll ?? []);
 
 
   if (!offer && !isOfferDataLoading){
     return <PageNotFoundPage/>;
   }else{
     if (offer !== null){
-      nearBysCorppedWithActive.push(convertToOfferPreview(offer));
+      nearBysCroppedWithActive.push(convertToOfferPreview(offer));
     }
   }
   return (
     <div className="page">
       <Header showUserLogin />
-      {isOfferDataLoading && <Spinner />}
+      {isDataLoading && <Spinner />}
       <main className="page__main page__main--offer">
         <section className="offer">
           <OfferGallery />
@@ -111,10 +122,10 @@ export default function OfferPage(): JSX.Element {
                   </p>
                 </div>
               </div>
-              {comments.length > 0 ? <OfferReviewsList reviews={comments} onAddComment={addCommentHandler}/> : ''}
+              {(comments.length === 0 && !isAuthorized) ? null : <OfferReviewsList reviews={comments} onAddComment={addCommentHandler} isAuthorized={isAuthorized}/>}
             </div>
           </div>
-          <Map city={CITIES_MAP[currentCity]} offers={nearBysCorppedWithActive} activeOfferId={offer?.id ?? null} className='offer__map map' />
+          <Map city={CITIES_MAP[currentCity]} offers={nearBysCroppedWithActive} activeOfferId={offer?.id ?? null} className='offer__map map' />
         </section>
         <div className="container">
           <NearByPlaces places={nearBysCropped}/>
@@ -123,3 +134,5 @@ export default function OfferPage(): JSX.Element {
     </div>
   );
 }
+
+export default OfferPage;

@@ -1,6 +1,7 @@
 import { OfferPreviewType } from '../types/offer-type';
 import { Link } from 'react-router-dom';
 import { AppRoute } from './consts';
+import { memo } from 'react';
 
  type Props = {
    offer: OfferPreviewType ;
@@ -54,4 +55,5 @@ function OfferCard({offer, onActiveOfferCardChanged}: Props): JSX.Element {
   );
 }
 
-export default OfferCard;
+const MemoizedOfferCard = memo(OfferCard);
+export {MemoizedOfferCard as OfferCard};

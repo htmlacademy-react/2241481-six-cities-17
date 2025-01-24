@@ -1,4 +1,5 @@
-import Star from './star';
+import { memo } from 'react';
+import { Star } from './star';
 
 type Props = {
     value: number;
@@ -22,4 +23,5 @@ function Rating({value, onChangeHandler}: Props): JSX.Element{
   );
 }
 
-export default Rating;
+const MemoizedRating = memo(Rating);
+export {MemoizedRating as Rating};
