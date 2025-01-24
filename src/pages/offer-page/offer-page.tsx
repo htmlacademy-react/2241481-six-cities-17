@@ -20,6 +20,7 @@ import { selectCurrentCity } from '../../store/app-slice/selectors';
 import { selectComments, selectIsCommentsDataLoading } from '../../store/comments-slice/selectors';
 import { selectIsNearByDataLoading, selectNearBys } from '../../store/near-by-slice/selectors';
 import { selectAuthorizationStatus } from '../../store/user-slice/selectors';
+import FavoritesButton from '../../components/common/favorites-button';
 
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -83,12 +84,7 @@ function OfferPage(): JSX.Element {
                 <h1 className="offer__name">
                   {offer?.title}
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <FavoritesButton type={'Offer'} />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
