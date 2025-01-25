@@ -1,6 +1,6 @@
 import { MAX_REVIEWS_COUNT, SortItem } from '../components/consts';
+import CommentType from '../types/comment-type';
 import { OfferPreviewType, OfferType } from '../types/offer-type';
-import ReviewType from '../types/reivew-type';
 
 const sortOffers = (offers: OfferPreviewType[], sortingType: SortItem): OfferPreviewType[] => {
   switch (sortingType){
@@ -35,7 +35,7 @@ const convertToOfferPreview = (offer: OfferType): OfferPreviewType => ({
 });
 
 
-const prepareReviews = (reviews: ReviewType[]): ReviewType[] => {
+const prepareReviews = (reviews: CommentType[]): CommentType[] => {
   const sorted = reviews.toSorted((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   return sorted.slice(0, MAX_REVIEWS_COUNT);
 };

@@ -1,4 +1,8 @@
-import { UserType } from './reivew-type';
+type UserType = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+}
 
 type PostCommentType = {
   comment: string;
@@ -12,4 +16,4 @@ type CommentType = PostCommentType & {
 }
 
 export default CommentType;
-export type { PostCommentType };
+export type { PostCommentType, UserType };

@@ -18,7 +18,7 @@ function groupByCityName(offers: OfferPreviewType[]): Record<string, OfferPrevie
   }, {});
 }
 
-export default function FavoritesPage({favorites}: Props): JSX.Element {
+function FavoritesPage({favorites}: Props): JSX.Element {
   const favoritesGroups: Record<string, OfferPreviewType[]> = groupByCityName(favorites);
   return (
     <div className="page">
@@ -43,3 +43,5 @@ export default function FavoritesPage({favorites}: Props): JSX.Element {
     </div>
   );
 }
+
+export default FavoritesPage;

@@ -1,7 +1,7 @@
 import { AppRoute } from '../../components/consts';
 import { Link } from 'react-router-dom';
 
-export default function MainEmptyPage(): JSX.Element {
+function MainEmptyPage(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -86,3 +86,4 @@ export default function MainEmptyPage(): JSX.Element {
   );
 }
 
+export default MainEmptyPage;

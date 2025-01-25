@@ -1,18 +1,16 @@
 import { useAppSelector } from '../../hooks';
-import AddCommentForm from '../../pages/offer-page/add-comment-form';
-import ReviewType from '../../types/reivew-type';
-import { selectAuthorizationStatus, selectOffer } from '../../types/store/selectors';
-import { AuthorizationStatus } from '../consts';
+import { AddCommentForm } from '../../pages/offer-page/add-comment-form';
+import { selectOffer } from '../../store/offer-slice/selectors';
+import CommentType from '../../types/comment-type';
 import ReviewItem from './offer-review-item';
 
 type Props = {
-    reviews: ReviewType[];
+    reviews: CommentType[];
     onAddComment: ()=> void;
+    isAuthorized: boolean;
 }
 
-function OfferReviewsList({reviews, onAddComment}: Props): JSX.Element{
-  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
-  const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+function OfferReviewsList({reviews, onAddComment, isAuthorized}: Props): JSX.Element{
   const currentOffer = useAppSelector(selectOffer);
 
   return(

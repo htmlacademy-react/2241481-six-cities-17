@@ -1,20 +1,16 @@
-import { useState } from 'react';
+import { memo } from 'react';
 import Header from '../../components/common/header';
 import CityTabs from '../../components/city-tabs/city-tabs';
 import { useAppSelector } from '../../hooks';
-import MainPageContent from './main-page-content';
+import { MainPageContent } from './main-page-content';
 import OffersEmpty from '../offer-page/offers-empty';
 import Spinner from '../../components/spinner/spinner';
 import { OfferPreviewType } from '../../types/offer-type';
-import { selectCurrentCity, selectIsOffersDataLoading, selectOffers } from '../../types/store/selectors';
+import { selectIsOffersDataLoading, selectOffers } from '../../store/offers-slice/selectors';
+import { selectCurrentCity } from '../../store/app-slice/selectors';
 
 
 function MainPage(): JSX.Element{
-  const [activeOffer, setActiveOffer] = useState<string | null>(null);
-  const handleActiveOfferChange = (id: string | null) => {
-    setActiveOffer(id);
-  };
-
   const offers: OfferPreviewType[] = useAppSelector(selectOffers);
   const currentCity = useAppSelector(selectCurrentCity);
   const isOffersDataLoading = useAppSelector(selectIsOffersDataLoading);
@@ -32,8 +28,6 @@ function MainPage(): JSX.Element{
           <MainPageContent
             offers={offers}
             currentCity={currentCity}
-            activeOfferId={activeOffer}
-            handleActiveOfferChange={handleActiveOfferChange}
           /> :
           <OffersEmpty
             cityName={currentCity}
@@ -43,4 +37,5 @@ function MainPage(): JSX.Element{
   );
 }
 
-export default MainPage;
+const MemoizedMainPage = memo(MainPage);
+export { MemoizedMainPage as MainPage };

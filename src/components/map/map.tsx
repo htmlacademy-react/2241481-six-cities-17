@@ -5,6 +5,18 @@ import { PIN_MARKER_URL, PIN_MARKER_ACTIVE_URL } from '../../data/leaflet-data';
 import { OfferPreviewType } from '../../types/offer-type';
 import CityType from '../../types/city-type';
 
+const icon = new Icon({
+  iconUrl: PIN_MARKER_URL,
+  iconSize: [28, 40],
+  anchor: [14, 40],
+});
+
+const iconActive = new Icon({
+  iconUrl: PIN_MARKER_ACTIVE_URL,
+  iconSize: [28, 40],
+  anchor: [14, 40],
+});
+
 type MapProps = {
   city: CityType;
   offers: OfferPreviewType[];
@@ -15,18 +27,6 @@ type MapProps = {
 function Map({city, offers, activeOfferId, className}: MapProps): JSX.Element{
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-
-  const icon = new Icon({
-    iconUrl: PIN_MARKER_URL,
-    iconSize: [28, 40],
-    anchor: [14, 40],
-  });
-
-  const iconActive = new Icon({
-    iconUrl: PIN_MARKER_ACTIVE_URL,
-    iconSize: [28, 40],
-    anchor: [14, 40],
-  });
 
   useEffect(()=>{
     if (map){

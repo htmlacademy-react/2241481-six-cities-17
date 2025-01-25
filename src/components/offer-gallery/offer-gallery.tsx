@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../hooks';
-import { selectOffer } from '../../types/store/selectors';
+import { selectOffer } from '../../store/offer-slice/selectors';
 import OfferGalleryItem from './offer-gallery-item';
 
 function OfferGallery(): JSX.Element{

@@ -1,5 +1,5 @@
 import CITIES_MAP from '../../data/cities';
-import Tab from './tab';
+import { Tab } from './tab';
 
 type Props = {
     currentCity: string;
