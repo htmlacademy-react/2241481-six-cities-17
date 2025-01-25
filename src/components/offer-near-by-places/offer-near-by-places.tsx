@@ -1,5 +1,5 @@
 import { OfferPreviewType } from '../../types/offer-type';
-import NearByItem from '../offer-near-by-item/offer-near-by-item';
+import { OfferCard } from '../offerCard';
 
 type Props = {
     places: OfferPreviewType[];
@@ -11,7 +11,7 @@ function NearByPlaces({places}: Props):JSX.Element{
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
       <div className="near-places__list places__list">
         {places.map(
-          (item) => <NearByItem item={item} key={item.id}/>
+          (item) => <OfferCard offer={item} key={item.id} isNearByCard />
         )}
       </div>
     </section>
