@@ -15,6 +15,11 @@ type OffersStateType = {
   isOffersDataLoading: boolean;
 }
 
+type FavoritesStateType = {
+  offers: OfferPreviewType[];
+  isFavoritesDataLoading: boolean;
+}
+
 type OfferStateType = {
   offer: OfferType | null;
   isOfferDataLoading: boolean;
@@ -39,6 +44,7 @@ type UserStateType = {
 export type {
   AppStateType,
   OfferStateType,
+  FavoritesStateType,
   OffersStateType,
   CommentsStateType,
   NearByStateType,

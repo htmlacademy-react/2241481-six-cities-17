@@ -19,8 +19,8 @@ enum ApiRoute{
     Offer = '/offers/:id',
     Comments = '/comments/:id',
     NearByOffers = '/offers/:id/nearby',
+    Favorites = '/favorite'
 }
-
 
 enum SortItem {
     Popular = 'Popular',
@@ -35,7 +35,8 @@ enum NameSpace {
   Offer = 'Offer',
   Comments = 'Comments',
   NearBy = 'NearBy',
-  User = 'User'
+  User = 'User',
+  Favorites = 'Favorites'
 }
 
 const REVIEW_THRESHOLD = {

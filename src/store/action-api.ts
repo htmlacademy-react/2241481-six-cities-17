@@ -19,6 +19,18 @@ const fetchOffers = createAsyncThunk<OfferPreviewType[], undefined, {
   }
 );
 
+export const fetchFavorites = createAsyncThunk<OfferPreviewType[], undefined, {
+  dispatch: AppDispatch;
+  state: AppState;
+  extra: AxiosInstance;
+}>(
+  'favorites/fetchFavorites',
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<OfferPreviewType[]>(ApiRoute.Favorites);
+    return data;
+  },
+);
+
 const checkAuth = createAsyncThunk<UserDataType, undefined, {
   dispatch: AppDispatch;
   state: AppState;
