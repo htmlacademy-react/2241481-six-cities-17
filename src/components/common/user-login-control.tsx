@@ -3,12 +3,14 @@ import { AppRoute, AuthorizationStatus } from '../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logout } from '../../store/action-api';
 import { selectAuthorizationStatus, selectCurrentUser, selectIsRequestPending } from '../../store/user-slice/selectors';
+import { selectFavorites } from '../../store/favorites-slice/selectors';
 
 function UserLoginControl(): JSX.Element{
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
   const isRequestPending = useAppSelector(selectIsRequestPending);
+  const favorites = useAppSelector(selectFavorites);
   const logoutHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
     dispatch(logout());
@@ -30,7 +32,7 @@ function UserLoginControl(): JSX.Element{
               >
                 <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                 <span className="header__user-name user__name">{currentUser?.email}</span>
-                <span className="header__favorite-count">3</span>
+                <span className="header__favorite-count">{favorites.length}</span>
               </Link>
             </li>
             <li className="header__nav-item">

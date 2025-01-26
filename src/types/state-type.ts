@@ -16,7 +16,7 @@ type OffersStateType = {
 }
 
 type FavoritesStateType = {
-  offers: OfferPreviewType[];
+  favorites: OfferPreviewType[];
   isFavoritesDataLoading: boolean;
 }
 

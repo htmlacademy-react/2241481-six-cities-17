@@ -3,6 +3,7 @@ import { AuthorizationStatus, NameSpace } from '../../components/consts';
 import { UserStateType } from '../../types/state-type';
 import { checkAuth, login, logout } from '../action-api';
 import { dropToken, saveToken } from '../../services/token';
+import { toast } from 'react-toastify';
 
 const initialState: UserStateType = {
   currentUser: null,
@@ -38,7 +39,7 @@ const UserSlice = createSlice({
         state.authorizationStatus = AuthorizationStatus.NotAuth;
         state.currentUser = null;
         state.isRequestPending = false;
-        //TODO: error message.
+        toast.error('There was a login error');
       })
       .addCase(logout.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NotAuth;
@@ -48,7 +49,7 @@ const UserSlice = createSlice({
       })
       .addCase(logout.rejected, (state) => {
         state.isRequestPending = false;
-        //TODO: error message.
+        toast.error('There was a logout error');
       })
       .addCase(logout.pending, (state) => {
         state.isRequestPending = true;

@@ -84,7 +84,7 @@ function OfferPage(): JSX.Element {
                 <h1 className="offer__name">
                   {offer?.title}
                 </h1>
-                <FavoritesButton type={'Offer'} />
+                <FavoritesButton offerId={offer?.id ?? ''} type={'Offer'} />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">

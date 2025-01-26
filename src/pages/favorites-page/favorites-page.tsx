@@ -1,11 +1,13 @@
+import { useEffect } from 'react';
 import Header from '../../components/common/header';
 import { OfferPreviewType } from '../../types/offer-type';
 import FavoriteGroup from './favorites-group';
 import { Link } from 'react-router-dom';
-
-type Props={
-  favorites: OfferPreviewType[];
-}
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFavorites } from '../../store/action-api';
+import { selectAuthorizationStatus } from '../../store/user-slice/selectors';
+import { AuthorizationStatus } from '../../components/consts';
+import { selectFavorites } from '../../store/favorites-slice/selectors';
 
 function groupByCityName(offers: OfferPreviewType[]): Record<string, OfferPreviewType[]> {
   return offers.reduce((grouped: Record<string, OfferPreviewType[]>, offer) => {
@@ -18,7 +20,18 @@ function groupByCityName(offers: OfferPreviewType[]): Record<string, OfferPrevie
   }, {});
 }
 
-function FavoritesPage({favorites}: Props): JSX.Element {
+function FavoritesPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+
+  useEffect(()=>{
+    if (authorizationStatus === AuthorizationStatus.Auth){
+      dispatch(fetchFavorites());
+    }
+  }, [authorizationStatus, dispatch]);
+
+  const favorites = useAppSelector(selectFavorites);
+
   const favoritesGroups: Record<string, OfferPreviewType[]> = groupByCityName(favorites);
   return (
     <div className="page">
