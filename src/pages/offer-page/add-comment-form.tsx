@@ -1,12 +1,12 @@
 import { ChangeEvent, memo, useState } from 'react';
 import { RATING_THRESHOLD, REVIEW_THRESHOLD } from '../../components/consts';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postComment } from '../../store/action-api';
 import { OfferType } from '../../types/offer-type';
 import { PostCommentType } from '../../types/comment-type';
-import ErrorBlock from '../../components/error/error';
 import { Rating } from './rating-block';
 import SubmitTip from './submit-tip';
+import { selectIsCommentsRequestRunning } from '../../store/comments-slice/selectors';
 
 type ReviewFormDataType = {
     review: string;
@@ -27,8 +27,7 @@ function AddCommentForm({offer, onAddComment}: Props): JSX.Element {
 
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState<ReviewFormDataType>(initialState);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const isRequestRunning = useAppSelector(selectIsCommentsRequestRunning);
 
   const isValidRating = formData.rating >= RATING_THRESHOLD.MIN && formData.rating <= RATING_THRESHOLD.MAX;
   const isValidReview = formData.review.length > REVIEW_THRESHOLD.MIN && formData.review.length < REVIEW_THRESHOLD.MAX;
@@ -50,7 +49,6 @@ function AddCommentForm({offer, onAddComment}: Props): JSX.Element {
 
   const handleSubmitForm = (e: ChangeEvent<HTMLFormElement>) =>{
     e.preventDefault();
-    setIsSubmitting(true);
 
     const commentPayload: PostCommentType = {
       comment: formData.review,
@@ -61,15 +59,10 @@ function AddCommentForm({offer, onAddComment}: Props): JSX.Element {
       offerId: offer?.id ?? '',
       payload: commentPayload
     })).then((response)=>{
-      setIsSubmitting(true);
       if (response.meta.requestStatus === 'fulfilled'){
-        setFormData(initialState);
         onAddComment();
+        setFormData(initialState);
       }
-    }).catch((error: Error) =>{
-      setSubmitError(error.message);
-    }).finally(() => {
-      setIsSubmitting(false);
     });
   };
 
@@ -90,8 +83,7 @@ function AddCommentForm({offer, onAddComment}: Props): JSX.Element {
       />
       <div className="reviews__button-wrapper">
         {!isDataValid && <SubmitTip />}
-        <button className="reviews__submit form__submit button" type="submit" disabled={!isDataValid || isSubmitting} >Submit</button>
-        {submitError && <ErrorBlock error={submitError} />}
+        <button className="reviews__submit form__submit button" type="submit" disabled={!isDataValid || isRequestRunning} >Submit</button>
       </div>
     </form>
   );

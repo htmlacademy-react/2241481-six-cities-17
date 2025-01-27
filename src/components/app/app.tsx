@@ -5,7 +5,7 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import PageNotFoundPage from '../../pages/not-found-page/not-found-page';
-import PrivateRoute from '../privateRoute';
+import PrivateRoute from '../private-route';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { checkAuth, fetchFavorites, fetchOffers } from '../../store/action-api';

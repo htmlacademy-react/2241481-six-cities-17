@@ -17,7 +17,7 @@ import PageNotFoundPage from '../not-found-page/not-found-page';
 import { AuthorizationStatus } from '../../components/consts';
 import { selectIsOfferDataLoading, selectOffer } from '../../store/offer-slice/selectors';
 import { selectCurrentCity } from '../../store/app-slice/selectors';
-import { selectComments, selectIsCommentsDataLoading } from '../../store/comments-slice/selectors';
+import { selectComments, selectIsCommentsRequestRunning } from '../../store/comments-slice/selectors';
 import { selectIsNearByDataLoading, selectNearBys } from '../../store/near-by-slice/selectors';
 import { selectAuthorizationStatus } from '../../store/user-slice/selectors';
 import FavoritesButton from '../../components/common/favorites-button';
@@ -25,7 +25,7 @@ import FavoritesButton from '../../components/common/favorites-button';
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const isOfferDataLoading = useAppSelector(selectIsOfferDataLoading);
-  const isCommentDataLoading = useAppSelector(selectIsCommentsDataLoading);
+  const isCommentDataLoading = useAppSelector(selectIsCommentsRequestRunning);
   const isNearByDataLoading = useAppSelector(selectIsNearByDataLoading);
   const isDataLoading = isOfferDataLoading || isCommentDataLoading || isNearByDataLoading;
 

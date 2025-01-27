@@ -27,7 +27,7 @@ type OfferStateType = {
 
 type CommentsStateType = {
   comments: CommentType[] | null;
-  isCommentsDataLoading: boolean;
+  isCommentsRequestRunning: boolean;
 }
 
 type NearByStateType = {
