@@ -40,8 +40,8 @@ const prepareReviews = (reviews: CommentType[]): CommentType[] => {
   return sorted.slice(0, MAX_REVIEWS_COUNT);
 };
 
-function groupByCityName(offers: OfferPreviewType[]): Record<string, OfferPreviewType[]> {
-  return offers.reduce((grouped: Record<string, OfferPreviewType[]>, offer) => {
+const groupByCityName = (offers: OfferPreviewType[]): Record<string, OfferPreviewType[]> =>
+  offers.reduce((grouped: Record<string, OfferPreviewType[]>, offer) => {
     const cityName = offer.city.name;
     if (!grouped[cityName]) {
       grouped[cityName] = [];
@@ -49,12 +49,16 @@ function groupByCityName(offers: OfferPreviewType[]): Record<string, OfferPrevie
     grouped[cityName].push(offer);
     return grouped;
   }, {});
-}
+
+const getRatingStarPercent = (rating: number): string =>
+  `${Math.round(rating) * 20}%`;
+
 
 export {
   sortOffers,
   filterOffers,
   convertToOfferPreview,
   prepareReviews,
-  groupByCityName
+  groupByCityName,
+  getRatingStarPercent
 };

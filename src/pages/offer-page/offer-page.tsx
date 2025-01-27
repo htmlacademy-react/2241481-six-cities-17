@@ -12,7 +12,7 @@ import OfferReviewsList from '../../components/offer-reviews/offer-reviews';
 import HostUser from '../../components/host-user/host-user';
 import OfferGoods from '../../components/offer-goods/offer-goods';
 import NearByPlaces from '../../components/offer-near-by-places/offer-near-by-places';
-import { convertToOfferPreview, prepareReviews } from '../../utils/utils';
+import { convertToOfferPreview, getRatingStarPercent, prepareReviews } from '../../utils/utils';
 import PageNotFoundPage from '../not-found-page/not-found-page';
 import { AuthorizationStatus } from '../../components/consts';
 import { selectIsOfferDataLoading, selectOffer } from '../../store/offer-slice/selectors';
@@ -88,7 +88,7 @@ function OfferPage(): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: '80%'}}></span>
+                  <span style={{width: getRatingStarPercent(offer?.rating ?? 0)}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{offer?.rating}</span>

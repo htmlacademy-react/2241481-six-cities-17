@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { useAppSelector } from '../../hooks';
 import { OfferPreviewType } from '../../types/offer-type';
 import { sortOffers } from '../../utils/utils';
-import { OfferCard } from '../offerCard';
+import { OfferCard } from '../offer-card';
 import { selectSortingType } from '../../store/app-slice/selectors';
 
 type Props = {
