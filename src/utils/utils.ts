@@ -40,9 +40,21 @@ const prepareReviews = (reviews: CommentType[]): CommentType[] => {
   return sorted.slice(0, MAX_REVIEWS_COUNT);
 };
 
+function groupByCityName(offers: OfferPreviewType[]): Record<string, OfferPreviewType[]> {
+  return offers.reduce((grouped: Record<string, OfferPreviewType[]>, offer) => {
+    const cityName = offer.city.name;
+    if (!grouped[cityName]) {
+      grouped[cityName] = [];
+    }
+    grouped[cityName].push(offer);
+    return grouped;
+  }, {});
+}
+
 export {
   sortOffers,
   filterOffers,
   convertToOfferPreview,
-  prepareReviews
+  prepareReviews,
+  groupByCityName
 };

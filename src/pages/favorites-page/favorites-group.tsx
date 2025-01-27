@@ -19,7 +19,7 @@ function FavoriteGroup({cityName, offers}:Props): JSX.Element{
       </div>
       <div className="favorites__places">
         {offers.map(
-          (offerItem)=><OfferCard offer={offerItem} key={offerItem.id}/>
+          (offerItem)=><OfferCard offer={offerItem} key={offerItem.id} isNearByCard={false}/>
         )};
       </div>
     </li>

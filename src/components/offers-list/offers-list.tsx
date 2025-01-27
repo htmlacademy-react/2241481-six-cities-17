@@ -16,7 +16,7 @@ function OfferCardsList({offers, onActiveOfferCardChanged}: Props) : JSX.Element
   return(
     <div className="cities__places-list places__list tabs__content">
       {sortedOffers.map(
-        (offerItem) => <OfferCard onActiveOfferCardChanged={onActiveOfferCardChanged} offer={offerItem} key={offerItem.id} />
+        (offerItem) => <OfferCard onActiveOfferCardChanged={onActiveOfferCardChanged} offer={offerItem} key={offerItem.id} isNearByCard={false} />
       )};
     </div>
   );

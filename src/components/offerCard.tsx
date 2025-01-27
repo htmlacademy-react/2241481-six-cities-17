@@ -2,25 +2,35 @@ import { OfferPreviewType } from '../types/offer-type';
 import { Link } from 'react-router-dom';
 import { AppRoute } from './consts';
 import { memo } from 'react';
+import FavoritesButton from './common/favorites-button';
 
  type Props = {
    offer: OfferPreviewType ;
    onActiveOfferCardChanged?: (id: string | null) => void;
+   isNearByCard: boolean;
 }
 
-function OfferCard({offer, onActiveOfferCardChanged}: Props): JSX.Element {
+function OfferCard({offer, onActiveOfferCardChanged, isNearByCard = false}: Props): JSX.Element {
   const offerRout = AppRoute.Offer.replace(':id', offer.id);
+  const articleClass = isNearByCard ?
+    'near-places__card place-card' :
+    'cities__card place-card';
+
+  const imageWrapperClass = isNearByCard ?
+    'cities__image-wrapper place-card__image-wrapper' :
+    'near-places__image-wrapper place-card__image-wrapper';
+
   return (
-    <article className="cities__card place-card"
+    <article className={articleClass}
       onMouseEnter={() => onActiveOfferCardChanged && onActiveOfferCardChanged(offer.id)}
-      onMouseLeave={() => onActiveOfferCardChanged && onActiveOfferCardChanged(null)}
+      onMouseLeave={ () => onActiveOfferCardChanged && onActiveOfferCardChanged(null)}
     >
       {offer.isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>
         </div> :
         null }
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={imageWrapperClass}>
         <Link to={offerRout}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
         </Link>
@@ -31,12 +41,10 @@ function OfferCard({offer, onActiveOfferCardChanged}: Props): JSX.Element {
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <FavoritesButton
+            offerId={offer.id}
+            type={isNearByCard ? 'NearBy' : 'OfferCard'}
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

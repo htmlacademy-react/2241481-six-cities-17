@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { OfferPreviewType } from '../../types/offer-type';
 import { AppRoute } from '../consts';
 import { MainPage } from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -8,21 +7,22 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import PageNotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../privateRoute';
 import { useEffect } from 'react';
-import { useAppDispatch } from '../../hooks';
-import { checkAuth, fetchOffers } from '../../store/action-api';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { checkAuth, fetchFavorites, fetchOffers } from '../../store/action-api';
+import { selectAuthorizationStatus } from '../../store/user-slice/selectors';
 
-
-type AppProps = {
-  favorites: OfferPreviewType[];
-}
-
-function App({favorites}: AppProps): JSX.Element{
+function App(): JSX.Element{
   const dispatch = useAppDispatch();
+  const authenticationStatus = useAppSelector(selectAuthorizationStatus);
 
   useEffect(()=>{
     dispatch(checkAuth());
     dispatch(fetchOffers());
   }, [dispatch]);
+
+  useEffect(()=> {
+    dispatch(fetchFavorites());
+  }, [authenticationStatus, dispatch]);
 
   return (
     <BrowserRouter>
@@ -40,7 +40,7 @@ function App({favorites}: AppProps): JSX.Element{
             path={AppRoute.Favorites}
             element={
               <PrivateRoute navigatePath={AppRoute.LogIn}>
-                <FavoritesPage favorites={favorites}/>
+                <FavoritesPage />
               </PrivateRoute>
             }
           />

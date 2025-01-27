@@ -109,6 +109,44 @@ const postComment = createAsyncThunk<
   }
 );
 
+export const fetchFavorites = createAsyncThunk<OfferPreviewType[], undefined, {
+  dispatch: AppDispatch;
+  state: AppState;
+  extra: AxiosInstance;
+}>(
+  'favorites/fetchFavorites',
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<OfferPreviewType[]>(ApiRoute.Favorites);
+    return data;
+  },
+);
+
+const toggleFavorite = createAsyncThunk<
+  OfferPreviewType, // Тип данных, которые возвращает thunk
+  { offerId: string; wasFavorite: boolean }, // Тип аргументов, передаваемых в thunk
+  {
+    dispatch: AppDispatch;
+    state: AppState;
+    extra: AxiosInstance;
+  }
+>(
+  'favorites/toggleFavorite',
+  async ({ offerId, wasFavorite }, { getState, extra: api }) => {
+    const newStatus = Number(!wasFavorite);
+    const {data} = await api.post<OfferPreviewType>(
+      `${ApiRoute.Favorites}/${offerId}/${newStatus}`
+    );
+
+    const {offers} = getState().Offers;
+    const currentOffer = offers.find((offer) => offer.id === data.id);
+    if (!currentOffer){
+      throw new Error(`Offer ${data.id} was not found.`);
+    }
+
+    return {...currentOffer, isFavorite: data.isFavorite};
+  }
+);
+
 export {
   fetchOffers,
   checkAuth,
@@ -117,5 +155,6 @@ export {
   fetchOffer,
   fetchComments,
   fetchNearByOffers,
-  postComment
+  postComment,
+  toggleFavorite
 };
