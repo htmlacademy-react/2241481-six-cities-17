@@ -25,6 +25,7 @@ const FavoritesSlice = createSlice({
       })
       .addCase(fetchFavorites.rejected, (state) => {
         state.isFavoritesDataLoading = false;
+        toast.warn('Unable to fetch favorites data from server.');
       })
       .addCase(toggleFavorite.fulfilled, (state, action) => {
         if (action.payload.isFavorite){
