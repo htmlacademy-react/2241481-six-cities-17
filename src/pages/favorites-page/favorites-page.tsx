@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFavorites } from '../../store/action-api';
 import { selectAuthorizationStatus } from '../../store/user-slice/selectors';
-import { AuthorizationStatus } from '../../components/consts';
+import { AppRoute, AuthorizationStatus } from '../../components/consts';
 import { selectFavorites } from '../../store/favorites-slice/selectors';
 import FavoritesContainer from './favorites-container';
 import FavoritesEmpty from './favoirtes-empty';
@@ -28,7 +28,7 @@ function FavoritesPage(): JSX.Element {
         <FavoritesContainer favorites={favorites}/> :
         <FavoritesEmpty /> }
       <footer className="footer container">
-        <Link className="footer__logo-link" to="main.html">
+        <Link className="footer__logo-link" to={AppRoute.Main}>
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
         </Link>
       </footer>

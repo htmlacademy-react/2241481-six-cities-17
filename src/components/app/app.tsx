@@ -27,7 +27,7 @@ function App(): JSX.Element{
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root}>
+        <Route path={AppRoute.Main}>
           <Route index element={<MainPage />} />
           <Route path={AppRoute.LogIn} element={<LoginPage />}></Route>
           <Route

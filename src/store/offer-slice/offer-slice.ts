@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../components/consts';
 import { OfferStateType } from '../../types/state-type';
 import { fetchOffer } from '../action-api';
+import { toast } from 'react-toastify';
 
 const initialState: OfferStateType = {
   offer: null,
@@ -23,6 +24,7 @@ const OfferSlice = createSlice({
       })
       .addCase(fetchOffer.rejected, (state) => {
         state.isOfferDataLoading = false;
+        toast.warn('Unable to fetch offer data from server');
       });
   }
 });

@@ -23,7 +23,7 @@ function LoginForm(): JSX.Element{
         password: passwordRef.current.value
       })).then((response) => {
         if (response.meta.requestStatus === 'fulfilled'){
-          navigate(AppRoute.Root);
+          navigate(AppRoute.Main);
         }
       });
     }

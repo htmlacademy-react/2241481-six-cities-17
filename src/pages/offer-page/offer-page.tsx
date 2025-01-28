@@ -14,7 +14,7 @@ import OfferGoods from '../../components/offer-goods/offer-goods';
 import NearByPlaces from '../../components/offer-near-by-places/offer-near-by-places';
 import { convertToOfferPreview, getRatingStarPercent, prepareReviews } from '../../utils/utils';
 import PageNotFoundPage from '../not-found-page/not-found-page';
-import { AuthorizationStatus } from '../../components/consts';
+import { AuthorizationStatus, MAX_NEAR_BY_COUNT } from '../../components/consts';
 import { selectIsOfferDataLoading, selectOffer } from '../../store/offer-slice/selectors';
 import { selectCurrentCity } from '../../store/app-slice/selectors';
 import { selectComments, selectIsCommentsRequestRunning } from '../../store/comments-slice/selectors';
@@ -54,7 +54,7 @@ function OfferPage(): JSX.Element {
   const commentsAll = useAppSelector(selectComments);
   const nearBysFull = useAppSelector(selectNearBys);
 
-  const nearBysCropped = nearBysFull?.slice(0, 3) ?? [];
+  const nearBysCropped = nearBysFull?.slice(0, MAX_NEAR_BY_COUNT) ?? [];
   const nearBysCroppedWithActive = [...nearBysCropped];
   const comments = prepareReviews(commentsAll ?? []);
 
@@ -98,10 +98,10 @@ function OfferPage(): JSX.Element {
                   {offer?.type}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {`${offer?.bedrooms} Bedrooms`}
+                  {`${offer?.bedrooms} ${offer?.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}`}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  {`Max ${offer?.maxAdults} adults`}
+                  {`Max ${offer?.maxAdults} ${offer?.maxAdults === 1 ? 'Adult' : 'Adults'}`}
                 </li>
               </ul>
               <div className="offer__price">
