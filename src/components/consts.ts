@@ -40,7 +40,7 @@ enum NameSpace {
 }
 
 const REVIEW_THRESHOLD = {
-  MIN: 5,
+  MIN: 50,
   MAX: 300
 };
 
