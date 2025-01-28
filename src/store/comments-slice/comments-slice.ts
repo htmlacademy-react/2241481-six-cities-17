@@ -2,11 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../components/consts';
 import CommentType from '../../types/comment-type';
 import { CommentsStateType } from '../../types/state-type';
-import { fetchComments } from '../action-api';
+import { fetchComments, postComment } from '../action-api';
+import { toast } from 'react-toastify';
 
 const initialState: CommentsStateType = {
   comments: [] as CommentType[],
-  isCommentsDataLoading: false
+  isCommentsRequestRunning: false,
 };
 
 const CommentsSlice = createSlice({
@@ -16,14 +17,25 @@ const CommentsSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchComments.pending, (state) => {
-        state.isCommentsDataLoading = true;
+        state.isCommentsRequestRunning = true;
       })
       .addCase(fetchComments.fulfilled, (state, action) => {
-        state.isCommentsDataLoading = false;
+        state.isCommentsRequestRunning = false;
         state.comments = action.payload;
       })
       .addCase(fetchComments.rejected, (state) => {
-        state.isCommentsDataLoading = false;
+        state.isCommentsRequestRunning = false;
+        toast.warn('Unable to fetch comments from server');
+      })
+      .addCase(postComment.fulfilled, (state) => {
+        state.isCommentsRequestRunning = false;
+      })
+      .addCase(postComment.pending, (state) => {
+        state.isCommentsRequestRunning = false;
+      })
+      .addCase(postComment.rejected, (state) => {
+        state.isCommentsRequestRunning = false;
+        toast.warn('Unable to post comment.');
       });
   }
 });

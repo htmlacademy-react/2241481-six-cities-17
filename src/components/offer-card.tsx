@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from './consts';
 import { memo } from 'react';
 import FavoritesButton from './common/favorites-button';
+import { getRatingStarPercent } from '../utils/utils';
 
  type Props = {
    offer: OfferPreviewType ;
@@ -48,7 +49,7 @@ function OfferCard({offer, onActiveOfferCardChanged, isNearByCard = false}: Prop
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{width: getRatingStarPercent(offer.rating)}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { OfferCard } from '../../components/offerCard';
+import { OfferCard } from '../../components/offer-card';
 import { OfferPreviewType } from '../../types/offer-type';
 import { Link } from 'react-router-dom';
 

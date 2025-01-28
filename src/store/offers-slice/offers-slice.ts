@@ -3,6 +3,7 @@ import { OfferPreviewType } from '../../types/offer-type';
 import { OffersStateType } from '../../types/state-type';
 import { NameSpace } from '../../components/consts';
 import { fetchOffers } from '../action-api';
+import { toast } from 'react-toastify';
 
 const initialState: OffersStateType = {
   offers: [] as OfferPreviewType[],
@@ -24,6 +25,7 @@ const OffersSlice = createSlice({
       })
       .addCase(fetchOffers.rejected, (state) => {
         state.isOffersDataLoading = false;
+        toast.warn('Unable to fetch offers data from server');
       });
   }
 });

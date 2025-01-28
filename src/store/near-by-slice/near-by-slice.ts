@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../components/consts';
 import { NearByStateType } from '../../types/state-type';
 import { fetchNearByOffers } from '../action-api';
+import { toast } from 'react-toastify';
 
 const initialState: NearByStateType = {
   nearBys: null,
@@ -23,6 +24,7 @@ const NearBySlice = createSlice({
       })
       .addCase(fetchNearByOffers.rejected, (state) => {
         state.isNearByDataLoading = false;
+        toast.warn('Unable to fetch near-by offers data from server');
       });
   }
 });

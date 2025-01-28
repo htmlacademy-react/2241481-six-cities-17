@@ -5,7 +5,7 @@ enum AuthorizationStatus{
 }
 
 enum AppRoute{
-    Root = '/',
+    Main = '/',
     LogIn = '/login',
     Favorites = '/favorites',
     Offer = '/offer/:id',
@@ -40,7 +40,7 @@ enum NameSpace {
 }
 
 const REVIEW_THRESHOLD = {
-  MIN: 5,
+  MIN: 50,
   MAX: 300
 };
 
@@ -50,6 +50,7 @@ const RATING_THRESHOLD = {
 };
 
 const MAX_REVIEWS_COUNT = 10;
+const MAX_NEAR_BY_COUNT = 3;
 
 const RATIMG_MAP: { [key: number]: string } = {
   1 : 'terribly',
@@ -68,6 +69,7 @@ export {
   REVIEW_THRESHOLD,
   RATING_THRESHOLD,
   RATIMG_MAP,
-  MAX_REVIEWS_COUNT
+  MAX_REVIEWS_COUNT,
+  MAX_NEAR_BY_COUNT
 };
 

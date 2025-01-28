@@ -12,12 +12,12 @@ import OfferReviewsList from '../../components/offer-reviews/offer-reviews';
 import HostUser from '../../components/host-user/host-user';
 import OfferGoods from '../../components/offer-goods/offer-goods';
 import NearByPlaces from '../../components/offer-near-by-places/offer-near-by-places';
-import { convertToOfferPreview, prepareReviews } from '../../utils/utils';
+import { convertToOfferPreview, getRatingStarPercent, prepareReviews } from '../../utils/utils';
 import PageNotFoundPage from '../not-found-page/not-found-page';
-import { AuthorizationStatus } from '../../components/consts';
+import { AuthorizationStatus, MAX_NEAR_BY_COUNT } from '../../components/consts';
 import { selectIsOfferDataLoading, selectOffer } from '../../store/offer-slice/selectors';
 import { selectCurrentCity } from '../../store/app-slice/selectors';
-import { selectComments, selectIsCommentsDataLoading } from '../../store/comments-slice/selectors';
+import { selectComments, selectIsCommentsRequestRunning } from '../../store/comments-slice/selectors';
 import { selectIsNearByDataLoading, selectNearBys } from '../../store/near-by-slice/selectors';
 import { selectAuthorizationStatus } from '../../store/user-slice/selectors';
 import FavoritesButton from '../../components/common/favorites-button';
@@ -25,7 +25,7 @@ import FavoritesButton from '../../components/common/favorites-button';
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const isOfferDataLoading = useAppSelector(selectIsOfferDataLoading);
-  const isCommentDataLoading = useAppSelector(selectIsCommentsDataLoading);
+  const isCommentDataLoading = useAppSelector(selectIsCommentsRequestRunning);
   const isNearByDataLoading = useAppSelector(selectIsNearByDataLoading);
   const isDataLoading = isOfferDataLoading || isCommentDataLoading || isNearByDataLoading;
 
@@ -54,7 +54,7 @@ function OfferPage(): JSX.Element {
   const commentsAll = useAppSelector(selectComments);
   const nearBysFull = useAppSelector(selectNearBys);
 
-  const nearBysCropped = nearBysFull?.slice(0, 3) ?? [];
+  const nearBysCropped = nearBysFull?.slice(0, MAX_NEAR_BY_COUNT) ?? [];
   const nearBysCroppedWithActive = [...nearBysCropped];
   const comments = prepareReviews(commentsAll ?? []);
 
@@ -88,7 +88,7 @@ function OfferPage(): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: '80%'}}></span>
+                  <span style={{width: getRatingStarPercent(offer?.rating ?? 0)}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{offer?.rating}</span>
@@ -98,10 +98,10 @@ function OfferPage(): JSX.Element {
                   {offer?.type}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {`${offer?.bedrooms} Bedrooms`}
+                  {`${offer?.bedrooms} ${offer?.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}`}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  {`Max ${offer?.maxAdults} adults`}
+                  {`Max ${offer?.maxAdults} ${offer?.maxAdults === 1 ? 'Adult' : 'Adults'}`}
                 </li>
               </ul>
               <div className="offer__price">

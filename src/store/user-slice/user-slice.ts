@@ -25,6 +25,7 @@ const UserSlice = createSlice({
       .addCase(checkAuth.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NotAuth;
         state.isRequestPending = false;
+        toast.warn('Unable to check authentication status');
       })
       .addCase(login.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Auth;

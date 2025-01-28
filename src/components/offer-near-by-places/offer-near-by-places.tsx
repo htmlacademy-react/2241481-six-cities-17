@@ -1,5 +1,5 @@
 import { OfferPreviewType } from '../../types/offer-type';
-import { OfferCard } from '../offerCard';
+import { OfferCard } from '../offer-card';
 
 type Props = {
     places: OfferPreviewType[];

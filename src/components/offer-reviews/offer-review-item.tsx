@@ -1,4 +1,5 @@
 import CommentType from '../../types/comment-type';
+import { getRatingStarPercent } from '../../utils/utils';
 
 type Props = {
     review: CommentType;
@@ -29,7 +30,7 @@ function ReviewItem ({review}: Props): JSX.Element{
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{width: getRatingStarPercent(review.rating)}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
